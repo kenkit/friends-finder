@@ -1,0 +1,51 @@
+/* picture with text */
+.jumbotron {
+	position: relative;
+	background-image: url("http://cdn.inquisitr.com/wp-content/uploads/2016/08/Friends-Cast.jpg");
+	background-repeat: no-repeat;
+	background-size: cover;
+	color: white;
+	height: 80%;
+	font-family: 'Anton', sans-serif;
+	font-style: italic;
+}
+
+/* top text */
+.jumbotron-titletext {
+	position: relative;
+	background-color: black;
+	left: -5%;
+	top: -13%;
+	width: 110%;
+}
+
+.red-text {
+	color: red;
+}
+
+/* survey button right */
+.jumbotron h1 div {
+	float: right;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+}
+
+/* text bottom */
+.jumbotron-subtext {
+	position: absolute;
+	background-color: rgba(64, 64, 64, .7);
+	bottom: 0%;
+	color: white;
+	font-family: 'Roboto', sans-serif;
+	font-style: normal;
+	font-size: 3em;
+	letter-spacing: 0.05 em;
+	line-height: 1em;
+	width: 90%;
+	border-color: black;
+}
+
+
+.footer {
+	text-align: center;
+}
