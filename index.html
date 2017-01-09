@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>FriendsFinder</title>
+
+		<!-------------------------->
+		<!-- jQuery               -->
+		<!-------------------------->
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+		<!-------------------------->
+		<!-- bootstrap            -->
+		<!-------------------------->
+
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen">
+
+		<!-------------------------->
+		<!-- project styling      -->
+		<!-------------------------->
+
+		<link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+		<link href="assets/css/view.css" rel="stylesheet" type="text/css">
+	</head>
+	<body>
+	<div class="container">
+		<div class="jumbotron">
+			<h1 class="well jumbotron-titletext">
+				<span class="red-text">Adept</span>FriendsFinder &#174;
+				<!--
+				<div class="jumbotron-button">
+					<a class="btn btn-primary btn-md" href="#" role="button">
+				  		<span class="glyphicon glyphicon-list-alt"></span> Go to Survey
+					</a>
+				</div>
+				-->
+			</h1>
+			<div class="well jumbotron-subtext">
+				<h2>
+	  			Answer some questions to find your TV &#8216;Friend&#8217; with the greatest compatibility!&nbsp;
+	  			</h2>
+			</div>
+		</div>
+		<div>
+			<form action="/survey" method="get">
+				<fieldset>
+					<legend>Survey Questions</legend>
+					<ol>
+						<li>
+							<p>Social interaction comes to you ...
+								<label><input type="radio" name="q1" value="e:2" required="required" />&nbsp;naturally</label>
+								<label><input type="radio" name="q1" value="i:2" required="required" />&nbsp;with effort</label>
+							</p>
+						</li>
+						<li>
+							<p>You are better at learning ...
+								<label><input type="radio" name="q2" value="n:1" required="required" />&nbsp;abstract concepts</label>
+								<label><input type="radio" name="q2" value="s:1" required="required" />&nbsp;facts and procedures</label>
+							</p>
+						</li>
+						<li>
+							<p>It's frustrating when people don't consider ...
+								<label><input type="radio" name="q3" value="n:1" required="required" />&nbsp;others' feelings</label>
+								<label><input type="radio" name="q3" value="s:1" required="required" />&nbsp;the facts</label>
+							</p>
+						</li>
+						<li>
+							<p>You usually ...
+								<label><input type="radio" name="q4" value="j:1" required="required" />&nbsp;work first, then play</label>
+								<label><input type="radio" name="q4" value="p:1" required="required" />&nbsp;play first, then work</label>
+							</p>
+						</li>
+						<li>
+							<p>You are more ...
+								<label><input type="radio" name="q5" value="j:1" required="required" />&nbsp;work first, then play</label>
+								<label><input type="radio" name="q5" value="p:1" required="required" />&nbsp;play first, then work</label>
+							</p>
+						</li>
+						<li>
+							<p>You are more ...
+								<label><input type="radio" name="q6" value="n:2" required="required" />&nbsp;imaginative</label>
+								<label><input type="radio" name="q6" value="s:2" required="required" />&nbsp;realistic</label>
+							</p>
+						</li>
+						<li>
+							<p>You describe yourself as more ...
+								<label><input type="radio" name="q7" value="e:1" required="required" />&nbsp;open</label>
+								<label><input type="radio" name="q7" value="i:1" required="required" />&nbsp;private</label>
+							</p>
+						</li>
+						<li>
+							<p>You favor the path that is more ...
+								<label><input type="radio" name="q8" value="j:1" required="required" />&nbsp;conventional</label>
+								<label><input type="radio" name="q8" value="p:1" required="required" />&nbsp;unconventional</label>
+							</p>
+						</li>
+						<li>
+							<p>You tend to speak rather ...
+								<label><input type="radio" name="q9" value="s:1" required="required" />&nbsp;literally</label>
+								<label><input type="radio" name="q9" value="n:1" required="required" />&nbsp;figuratively</label>
+							</p>
+						</li>
+						<li>
+							<p>You would rather rely upon ...
+								<label><input type="radio" name="q10" value="j:2" required="required" />&nbsp;careful plans</label>
+								<label><input type="radio" name="q10" value="p:2" required="required" />&nbsp;improvisation</label>
+							</p>
+						</li>
+						<li>
+							<p>What's more appealing ...
+								<label><input type="radio" name="q11" value="f:1" required="required" />&nbsp;harmony</label>
+								<label><input type="radio" name="q11" value="t:1" required="required" />&nbsp;success</label>
+							</p>
+						</li>
+						<li>
+							<p>You work better ...
+								<label><input type="radio" name="q12" value="j:1" required="required" />&nbsp;with a deadline</label>
+								<label><input type="radio" name="q12" value="p:1" required="required" />&nbsp;in your own time</label>
+							</p>
+						</li>
+						<li>
+							<p>At home, you put more effort into ...
+								<label><input type="radio" name="q13" value="s:1" required="required" />&nbsp;tidying up</label>
+								<label><input type="radio" name="q13" value="n:1" required="required" />&nbsp;decorating</label>
+							</p>
+						</li>
+						<li>
+							<p>Meeting a new person, you first might try to ...
+								<label><input type="radio" name="q14" value="t:1" required="required" />&nbsp;probe how he thinks</label>
+								<label><input type="radio" name="q14" value="f:1" required="required" />&nbsp;connect to his emotions</label>
+							</p>
+						</li>
+						<li>
+							<p>Are you more ...
+								<label><input type="radio" name="q15" value="f:1" required="required" />&nbsp;sensitive</label>
+								<label><input type="radio" name="q15" value="t:1" required="required" />&nbsp;impartial</label>
+							</p>
+						</li>
+						<li>
+							<p>Is it worse to be ...
+								<label><input type="radio" name="q16" value="j:1" required="required" />&nbsp;scatterbrained</label>
+								<label><input type="radio" name="q16" value="p:1" required="required" />&nbsp;stuck in your ways</label>
+							</p>
+						</li>
+						<li>
+							<p>It's more natural for you to ...
+								<label><input type="radio" name="q17" value="j:1" required="required" />&nbsp;be wary of situations</label>
+								<label><input type="radio" name="q17" value="p:1" required="required" />&nbsp;see the good in everyone</label>
+							</p>
+						</li>
+						<li>
+							<p>You are more mindful of ...
+								<label><input type="radio" name="q18" value="j:1" required="required" />&nbsp;the future</label>
+								<label><input type="radio" name="q18" value="p:1" required="required" />&nbsp;the present</label>
+							</p>
+						</li>
+						<li>
+							<p>Picking a restuarant, you care more about ...
+								<label><input type="radio" name="q19" value="f:1" required="required" />&nbsp;friends' opinions</label>
+								<label><input type="radio" name="q19" value="t:1" required="required" />&nbsp;ratings and reviews</label>
+							</p>
+						</li>
+						<li>
+							<p>You place a high value on membership in clubs and organizations ...
+								<label><input type="radio" name="q20" value="e:1" required="required" />&nbsp;yes</label>
+								<label><input type="radio" name="q20" value="i:1" required="required" />&nbsp;no</label>
+							</p>
+						</li>
+						<li>
+							<p>At work, you usually ...
+								<label><input type="radio" name="q21" value="e:2" required="required" />&nbsp;interact with others</label>
+								<label><input type="radio" name="q21" value="i:2" required="required" />&nbsp;work alone</label>
+							</p>
+						</li>
+						<li>
+							<p>You reflect more often on your ...
+								<label><input type="radio" name="q22" value="p:2" required="required" />&nbsp;short term goals</label>
+								<label><input type="radio" name="q22" value="j:2" required="required" />&nbsp;long term goals</label>
+							</p>
+						</li>
+						<li>
+							<p>Lying up at night, you are more likely ...
+								<label><input type="radio" name="q23" value="s:1" required="required" />&nbsp;remembering the events of the day</label>
+								<label><input type="radio" name="q23" value="n:1" required="required" />&nbsp;being struck with brand new ideas</label>
+							</p>
+						</li>
+						<li>
+							<p>You make decisions based upon ...
+								<label><input type="radio" name="q24" value="t:2" required="required" />&nbsp;logic</label>
+								<label><input type="radio" name="q24" value="f:2" required="required" />&nbsp;feeling</label>
+							</p>
+						</li>
+						<li>
+							<p>You have difficulty saying no to people ...
+								<label><input type="radio" name="q25" value="f:1" required="required" />&nbsp;yes</label>
+								<label><input type="radio" name="q25" value="t:1" required="required" />&nbsp;no</label>
+							</p>
+						</li>
+					</ol>
+				</fieldset>
+				<input type="submit" value="Submit">
+			</form>
+		</div>
+		<br>
+		<hr>
+		<footer class="footer">
+			<div class="container">
+			        <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/zenglenn42/friends-finder">GitHub Repo</a></p>
+			</div>
+		</footer>
+	</div>
+	</body>
+</html>
