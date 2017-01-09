@@ -1,0 +1,25 @@
+{
+  "name": "friends-finder",
+  "version": "1.0.0",
+  "description": "MBTI-based Friend Finder",
+  "main": "servers.js",
+  "dependencies": {
+    "express": "^4.14.0",
+    "fs": "0.0.1-security"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zenglenn42/friends-finder.git"
+  },
+  "author": "zenglenn42",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zenglenn42/friends-finder/issues"
+  },
+  "homepage": "https://github.com/zenglenn42/friends-finder#readme"
+}

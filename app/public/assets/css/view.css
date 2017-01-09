@@ -5,18 +5,29 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 	color: white;
-	height: 80%;
+	height: 50vw;
 	font-family: 'Anton', sans-serif;
 	font-style: italic;
+	box-sizing: border-box;
+	padding-top: 0px;
 }
 
 /* top text */
 .jumbotron-titletext {
 	position: relative;
 	background-color: black;
-	left: -5%;
-	top: -13%;
-	width: 110%;
+	left: 0%;
+	top: 1vw;
+	width: 100%;
+	margin-top: 0;
+	margin-bottom: 0;
+	box-sizing: border-box;
+	padding: 0;
+}
+
+.jumbotron-button a {
+	vertical-align: middle;
+	/*margin-bottom: 10px;*/
 }
 
 .red-text {
@@ -30,6 +41,14 @@
 	font-style: normal;
 }
 
+h1 { 
+	font-size: 5vw 
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+h2 { font-size: 2vw }
+
 /* text bottom */
 .jumbotron-subtext {
 	position: absolute;
@@ -41,8 +60,12 @@
 	font-size: 3em;
 	letter-spacing: 0.05 em;
 	line-height: 1em;
-	width: 90%;
+	/*width: 90%;*/
 	border-color: black;
+	padding-top: 0;
+	padding-bottom: 0;
+	left:0;
+	right:0;
 }
 
 
