@@ -100,8 +100,8 @@ var mbtiVideos = {
 	getVideo: function(mbtiType) { return this.types[mbtiType] }
 };
 
-// Given an MBTI type, return the corresponding MBTI types for which you're
-// likely most compatibile according to personalitypage.com.
+// Given an MBTI type, return the complementary type with
+// highest degree of compatibility (according to personalitypage.com).
 
 var mbtiBestMatches = {
 	attribution: mbtiAttribution.brenda_ellis,
