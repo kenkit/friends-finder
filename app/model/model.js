@@ -68,7 +68,8 @@ var mbtiAttribution = {
 	},
 	getFullName: function(key) { return this[key].fullName },
 	getLink: function(key) { return this[key].link },
-	getPic: function(key) { return mbtiModel.imgDir + "/" + this[key].pic }
+	getPic: function(key) { return (this[key].pic) ? 
+				mbtiModel.imgDir + "/" + this[key].pic : undefined }
 };
 
 // Offer video resources for learning more about MBTI to the curious.
