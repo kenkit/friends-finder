@@ -1,19 +1,60 @@
-var assessmentMbti = [
-	{ name: "John Hawksley", desc: "25 questions", link: "http://jupiter-34.appspot.com/" },
-	{ name: "Tim Flynn", desc: "Similar Minds", link: "http://similarminds.com/cgi-bin/jung2.pl" },
-	{ name: "Quroa", desc: "Take your pick", link: "https://www.quora.com/What-is-the-most-accurate-free-online-Myers-Briggs-test" }
+//---------------------------------------------------------------------------
+// File: model.js
+//
+// This file contains the Meyers Briggs Type Indicator model that backs
+// the application.
+//
+// The big picture with typology is that people fall into broad categories
+// that characterize how they relate to the world and others.  MBTI is but
+// one system for classifying people based upon an assessment survey.
+//
+// As implemented, this model is more a fun sketch and not a rigorous
+// assessment.  I draw heavily from various web resources that relate MBTI
+// to the cast of the popular TV series, Friends.
+//
+// TODO: Much of this could probably be screen-scraped with Cheerio.
+//---------------------------------------------------------------------------
+
+var mbtiModel = {
+	imgDir: "./app/public/assets/img",
+	assessment: mbtiOnlineAssessments,
+	attribution: mbtiAttribution,
+	videos: mbtiVideos,
+	bestMatches: mbtiBestMatches,
+	descriptors: mbtiDescriptors,
+	profiles: mbtiProfiles,
+	tvFriends: mbtiTvFriends,
+	unitTests: unitTests
+};
+
+// The application embeds a weak attempt at assessing MBTI.  More definitive
+// assessments exist.  Offer up some alternative assessment vehicles.
+
+var mbtiOnlineAssessments = [
+	{ name: "John Hawksley", 
+	  desc: "25 questions", 
+	  link: "http://jupiter-34.appspot.com/" },
+	{ name: "Tim Flynn", 
+	  desc: "Similar Minds", 
+	  link: "http://similarminds.com/cgi-bin/jung2.pl" },
+	{ name: "Quroa", 
+	  desc: "Take your pick", 
+	  link: "https://www.quora.com/What-is-the-most-accurate-free-online-Myers-Briggs-test" }
 ];
 
-var mbtiAttribution {
+// Give credit for various web sources I've aggregated to create this
+// MBTI-based compatibility model.
+
+var mbtiAttribution = {
 	michael_pierce: {
 		fullName: "Michael Pierce",
-		video: "https://www.youtube.com/watch?v=5uKaFveOhXY",
+		link: "https://www.youtube.com/watch?v=5uKaFveOhXY",
 		pic: undefined
 	},
 	heidi_priebe: {
 		fullName: "Heide Priebe",
 		link: "http://tcat.tc/1PgB8Af",
-		pic: heidi_priebe.png
+		pic: "heidi_priebe.png"
 	},
 	brenda_ellis: {
 		fullName: "Brenda Ellis",
@@ -24,8 +65,13 @@ var mbtiAttribution {
 		fullName: "Jack Falt",
 		link: "http://users.trytel.com/jfalt/Tables/mbti-des.html",
 		pic: undefined
-	}
-}
+	},
+	getFullName: function(key) { return this[key].fullName },
+	getLink: function(key) { return this[key].link },
+	getPic: function(key) { return mbtiModel.imgDir + "/" + this[key].pic }
+};
+
+// Offer video resources for learning more about MBTI to the curious.
 
 var mbtiVideos = {
 	attribution: mbtiAttribution.michael_pierce,
@@ -47,16 +93,18 @@ var mbtiVideos = {
 		isfp: "https://youtu.be/OUiLIrK7RmQ?list=PL6rzdODmcL641s7WiVwaAAMlTrwnI1bCA",
 		istj: "https://youtu.be/U_SB6AbFyb4?list=PL6rzdODmcL641s7WiVwaAAMlTrwnI1bCA",
 		istp: "https://youtu.be/55LmENGRd58?list=PL6rzdODmcL641s7WiVwaAAMlTrwnI1bCA",
-	}
-}
+	},
+	getAttribution: function() { return this.attribution },
+	getOverviewVideo: function() { return this.overview },
+	getVideo: function(mbtiType) { return this.types[mbtiType] }
+};
 
-// TODO: Turn this into a method.  Generally it looks like:
-//
-// 1. Extroverts balance introverts
-// 2. Judgers balance perceivers
-//
+// Given an MBTI type, return the corresponding MBTI types for which you're
+// likely most compatibile according to personalitypage.com.
+
 var mbtiBestMatches = {
 	attribution: mbtiAttribution.brenda_ellis,
+	overview: "http://personalitypage.com/html/partners.html",
 	types: {
 		enfj: {
 			matches: ["infp", "isfp"],
@@ -122,8 +170,14 @@ var mbtiBestMatches = {
 			matches: ["estj", "entj"],
 			ref: undefined
 		}
-	}
-}
+	},
+	getAttribution: function() { return this.attribution },
+	getOverviewLink: function() { return this.overview },
+	getBestMatches: function(mbtiType) { return this.types[mbtiType].matches }
+};
+
+// Give the user a shorthand for understanding the 16 MBTI
+// personality categories.
 
 var mbtiDescriptors = {
 	attribution: mbtiAttribution.jack_falt,
@@ -159,7 +213,7 @@ var mbtiDescriptors = {
 			kierseyTitle: "The Healer"
 		},
 		intj: {
-			keirseyTitle: "The Mastermind"
+			kierseyTitle: "The Mastermind"
 		},
 		intp: {
 			kierseyTitle: "The Architect"
@@ -176,10 +230,15 @@ var mbtiDescriptors = {
 		istp: {
 			kierseyTitle : "The Crafter"
 		}
-	}
-}
+	},
+	getAttribution: function() { return this.attribution },
+	getDescriptor: function(mbtiType) { return this.types[mbtiType].kierseyTitle }
+};
 
-var mbtiPersonalities = {
+// Relate MBTI types to cleverly popularized personality
+// profiles from Heidi Priebe.
+
+var mbtiProfiles = {
 	attribution: mbtiAttribution.heidi_priebe,
 	types: {
 		enfj: {
@@ -855,303 +914,409 @@ var mbtiPersonalities = {
 			atAParty: "Decides it would be fun to Unicycle on the roof and"
 						+ " ends up in the hospital."
 		}
-	}
-}
+	},
+	getAttribution: function() 
+						{ return this.attribution },
+	getProfile: function(mbtiType) 
+						{ return this.types[mbtiType] },
+	getInstances: function(mbtiType) 
+						{ return this.types[mbtiType].instances },
+	getGenderInstances: function(mbtiType, desiredGender) { 
+							var results = [];
+							var numInstances = this.types[mbtiType].instances.length;
+							for (var i = 0; i < numInstances; i++) {
+								var tvFriend = this.types[mbtiType].instances[i]; 
+								var gender = mbtiModel.tvFriends.getGender(tvFriend);
+								if (gender == desiredGender) {
+									results.push(tvFriend);
+								}
+							}
+							return results;
+						},
+	getSingleBecause: function(mbtiType) 
+						{ return this.types[mbtiType].singleBecause },
+	getReadyWhen: function(mbtiType) 
+						{ return this.types[mbtiType].readyWhen },
+	getKindOfGirlfriend: function(mbtiType) 
+						{ return this.types[mbtiType].kindOfGirlfriend },
+	getShowLikeBy: function(mbtiType) 
+						{ return this.types[mbtiType].showLikeBy },
+	getMostAttractiveQuality: function(mbtiType) 
+						{ return this.types[mbtiType].mostAttractiveQuality },
+	getMostAttractiveQualityQuality: function(mbtiType) 
+						{ return this.types[mbtiType].mostAttractiveQuality.quality },
+	getMostAttractiveQualityDesc: function(mbtiType) 
+						{ return this.types[mbtiType].mostAttractiveQuality.description },
+	getInBed: function(mbtiType) 
+						{ return this.types[mbtiType].inBed },
+	getYourHell: function(mbtiType) 
+						{ return this.types[mbtiType].yourHell },
+	getAtAParty: function(mbtiType) 
+						{ return this.types[mbtiType].atAParty }
+};
 
-var tvFriends = {
-	carol: {
-		fullName: "Carol Willick",
-		mbti: "infj",
-		gender: "female",
-		orientation: "lb",
-		mbtiPic: carol-mbti.png,
-		closeupPic: placeholder200x200.png,
-		personalityPic: undefined,
-		rationale: "Though she was caring by nature, Carol was definitely"
-					+ " a feeler second and an intuitive first. She took time"
-					+ " to realize her feelings for Susan – she needed a"
-					+ " same-sex encounter to actually happen before she was"
-					+ " able to come to terms with her own sexual orientation."
-					+ " After that point, Carol’s inability to keep living a"
-					+ " lie was a classic INFJ move. She remained true to"
-					+ " herself, but showed Ross compassion along the way."
-					+ " Despite not seeing a lot of Carol throughout the show,"
-					+ " her calm, pensive vibe was a dead INFJ giveaway."
-	},
-	chandler: {
-		fullName: "Chandler Bing",
-		mbti: "entp",
-		gender: "male",
-		orientation: "s",
-		mbtiPic: chandler-mbti.png,
-		closeupPic: chandler.png,
-		personalityPic: chandler-2.png,
-		rationale: "Though he flips between displaying introverted and"
-					+ " extroverted characteristics, Chandler’s extroverted"
-					+ " intuition is indubitably his lead function – his"
-					+ " quick wit is his most defining trait. Of all the"
-					+ " characters on the show, Chandler is always the first"
-					+ " to pick up on what’s being left unsaid – and then he"
-					+ " rushes to rectify the situation, regardless of how"
-					+ " inappropriate his comment may be. Classic ENTP."
-	},
-	charlie: {
-		fullName: "Charlie Wheeler",
-		mbti: "intj",
-		gender: "female",
-		orientation: "s",
-		mbtiPic: charlie-mbti.png,
-		closeupPic: placeholder200x200.png,
-		personalityPic: undefined,
-		rationale: "Decisive, self-assured and tirelessly intellectual,"
-					+ " Charlie was a textbook INTJ. She allowed research"
-					+ " to rule her life and was attracted to intelligence"
-					+ " in a partner above all else. Her under-developed"
-					+ " introverted feeling was clear in the way she hopped"
-					+ " from partner to partner without concern for their"
-					+ " emotions. Introverted intuition and extroverted"
-					+ " thinking were clearly her stronger suits."
-	},
-	david: {
-		fullName: "David",
-		mbti: "intp",
-		gender: "male",
-		orientation: "s",
-		mbtiPic: david-mbti.png,
-		closeupPic: placeholder200x200.png,
-		personalityPic: undefined,
-		rationale: "The brilliant yet hopelessly awkward scientist who left"
-					+ " Phoebe to move to Minsk – who could forget David?"
-					+ " His introverted thinking kept him thoroughly invested"
-					+ " in his research, while his extroverted intuition was"
-					+ " responsible for the hilarious one-liners he"
-					+ " consistently doled out. David was indecisive,"
-					+ " speculative and wholly invested in his work – all"
-					+ " classic INTP traits."
-	},
-	gunther: {
-		fullName: "Gunther",
-		mbti: "isfj",
-		gender: "male",
-		orientation: "s",
-		mbtiPic: gunther-mbti.png,
-		closeupPic: placeholder200x200.png,
-		personalityPic: undefined,
-		rationale: "Loyal right to the end, Gunther was the absolute"
-					+ " embodiment of an ISFJ. He was quiet yet devoted,"
-					+ " wanting Rachel to be happy even more than he wanted"
-					+ " to be with her. Though we didn’t see much of this"
-					+ " character on the front line of the show, Friends"
-					+ " just wouldn’t have been the same without Gunther"
-					+ " – offering us the ultimate tale of unrequited love."
-	},
-	jack: {
-		fullName: "Jack Geller",
-		mbti: "istp",
-		gender: "male",
-		orientation: "s",
-		mbtiPic: jack-mbti.png,
-		closeupPic: placeholder200x200.png,
-		personalityPic: undefined,
-		rationale:  "Jack Geller has to be the most hilariously underrated"
-					+ " character on the show. Frank, quirky and pervasively"
-					+ " aloof, he plays a typical ISTP. He sees things as they"
-					+ " are – nothing more, nothing less. A typical perceiver,"
-					+ " he lets his wife make most of the important decisions"
-					+ " while he simply comes along for the ride – and"
-					+ " provides unassumingly hilarious commentary."
-	},
-	janice: {
-		fullName: "Janice Litman Goralnik",
-		mbti: "esfj",
-		gender: "female",
-		orientation: "s",
-		mbtiPic: janice-mbti.png,
-		closeupPic: placeholder200x200.png,
-		personalityPic: undefined,
-		rationale: "Despite her undeniably irritating catchphrase, OMG"
-					+ " (and voice in general), Janice played a surprisingly"
-					+ " mature character. She cares deeply for the people"
-					+ " around her and remains loyal to a fault to her loved"
-					+ " ones. She wants nothing more than for the people"
-					+ " around her to be happy and well taken care of."
-					+ " Janice was a well-developed ESFJ character who didn’t"
-					+ " deserve the bad reputation that she got."
-	},
-	joey: {
-		fullName: "Joey Tribbiani",
-		mbti: "esfp",
-		gender: "male",
-		orientation: "s",
-		mbtiPic: joey-mbti.png,
-		closeupPic: joey.png,
-		personalityPic: joey-2.png,
-		rationale: "Joey Tribbiani, everyone’s favourite ladies man, plays a"
-					+ " childlike caricature of the ESFP. Highly impulsive and"
-					+ " emotional, Joey’s inferior functions never get"
-					+ " developed and he remains eternally dependent on the"
-					+ " other characters to take care of him. Being the"
-					+ " charming ESFP that he is though, nobody minds. After"
-					+ " all, he’s just so endearing."
-	},
-	kathy: {
-		fullName: "Kathy",
-		mbti: "enfj",
-		gender: "female",
-		orientation: "s",
-		mbtiPic: kathy-mbti.png,
-		closeupPic: placeholder200x200.png,
-		personalityPic: undefined,
-		rationale: "Expressive, intuitive and nurturing, Kathy displayed every"
-					+ " quality of a confident ENFJ. Though her romantic"
-					+ " indiscretion may have been a wee bit out of character,"
-					+ " her chemistry with Chandler was undeniable. Her"
-					+ " reactive extroverted feeling ran her life and her"
-					+ " introverted intuition sometimes took a bit of time to"
-					+ " catch up – nonetheless she played an ENFJ character to"
-					+ " a T – or should we say, to an F."
-	},
-	mike: {
-		fullName: "Mike Hannigan",
-		mbti: "estp",
-		gender: "male",
-		orientation: "s",
-		mbtiPic: mike-mbti.png,
-		closeupPic: placeholder200x200.png,
-		personalityPic: undefined,
-		rationale: "Goofy, unpredictable and tolerant of Phoebe’s many quirks,"
-					+ " Mike displayed various characteristics of the"
-					+ " easy-going ESTP. He showed confidence in his physical"
-					+ " pursuits (a single game of ping-pong was enough to"
-					+ " make us aware of his competitive nature), an"
-					+ " open-minded attitude, and he was quick to act on his"
-					+ " decisions – once he finally got around to making them."
-					+ " Mike was a textbook ESTP and like most ESTPs, it was"
-					+ " difficult not to love him."
-	},
-	monica: {
-		fullName: "Monica Geller",
-		mbti: "estj",
-		gender: "female",
-		orientation: "s",
-		mbtiPic: monica-mbti.png,
-		closeupPic: monica.png,
-		personalityPic: monica-2.png,
-		rationale: "Opinionated, high-strung and perfectionistic, Monica is a"
-					+ " classic ESTJ. She is sure of what she wants and moves"
-					+ " confidently toward her goals in any situation. She"
-					+ " feeds off the energy of others but also believes that"
-					+ " everything and everyone has its proper place – making"
-					+ " her just a wee bit bossy. If her cleaning habits don’t"
-					+ " convince you of her personality type, her attitude as"
-					+ " a chef certainly will."
-	},
-	paul: {
-		fullName: "Paul Stevens",
-		mbti: "infp",
-		gender: "male",
-		orientation: "s",
-		mbtiPic: paul-mbti.png,
-		closeupPic: placeholder200x200.png,
-		personalityPic: undefined,
-		rationale: "Okay, we may be reaching a bit here – Friends was severely"
-					+ " lacking in INFP characters. The closest appropriation"
-					+ " we got was Bruce Willis’s fantastic portrayal of Paul,"
-					+ " the no-nonsense father of Ross’s young flame"
-					+ " Elizabeth. As the series unfolded, we saw a much"
-					+ " softer side to Paul – one that revealed a rich inner"
-					+ " emotional world. One so rich, in fact, that Rachel had"
-					+ " to break up with him for his overly-emotional"
-					+ " tendencies. But hey, he was a neat guy. And his"
-					+ " self-pep-talk was a hilarious display of introverted"
-					+ " feeling."
-	},
-	pete: {
-		fullName: "Pete Becker",
-		mbti: "entj",
-		gender: "male",
-		orientation: "s",
-		mbtiPic: pete-mbti.png,
-		closeupPic: placeholder200x200.png,
-		personalityPic: undefined,
-		rationale: "Successful, organized and goal oriented to a fault, Pete"
-					+ " was the perfect example of a fully-thriving ENTJ. He"
-					+ " latched quickly onto new challenges regardless of"
-					+ " what they entailed – from starting a multi-million"
-					+ " dollar company to becoming the Ultimate Fighting"
-					+ " Champion. Determined, personable and successful, Pete"
-					+ " was an ENTJ through and through."
-	},
-	phoebe: {
-		fullName: "Phoebe Buffay",
-		mbti: "enfp",
-		gender: "female",
-		orientation: "s",
-		mbtiPic: phoebe-mbti.png,
-		closeupPic: phoebe.png,
-		personalityPic: phoebe-2.png,
-		rationale: "Zany, creative and full of new ideas, Phoebe Buffay plays"
-					+ " an exaggerated version of the classic ENFP. No"
-					+ " speculation is too out-there for this unconventional"
-					+ " character who lets her extroverted intuition run wild"
-					+ " when it comes to evaluating her career and romance"
-					+ " options. When she needs to make a decision, Phoebe"
-					+ " uses a strong set of internal morals to govern her."
-					+ " She is a classic ENFP – if her song lyrics won’t"
-					+ " convince you, her outlandish actions will."
-	},
-	rachel: {
-		fullName: "Rachel Green",
-		mbti: "esfp",
-		gender: "female",
-		orientation: "s",
-		mbtiPic: rachel-mbti.png,
-		closeupPic: rachel.png,
-		personalityPic: rachel-2.png,
-		rationale: "Rachel embodies a realistic, well-developed ESFP character"
-					+ " who plays on her strengths. She uses extroverted"
-					+ " sensing to establish a successful career in the"
-					+ " fashion industry and introverted feeling to nurture"
-					+ " deep, caring relationships with those around her. She"
-					+ " is the ESFP we all wish we had in our lives"
-					+ " – spontaneous, enthusiastic and funny yet also"
-					+ " responsible, driven and grounded. Rachel embodies an"
-					+ " excellent depiction of a mature ESFP."
-	},
-	ross: {
-		fullName: "Ross Geller",
-		mbti: "istj",
-		gender: "male",
-		orientation: "s",
-		mbtiPic: ross-mbti.png,
-		closeupPic: ross.png,
-		personalityPic: ross-2.png,
-		rationale:  "Focused, detail-oriented and just a little bit irritable,"
-					+ " Ross displays undeniable ISTJ characteristics. Though"
-					+ " the nature of the show focuses mainly on his feelings,"
-					+ " Ross is a thinker at heart. He is drawn to"
-					+ " intellectual pursuits and derives energy through his"
-					+ " inner world of thoughts and, well, dinosaurs. His"
-					+ " never-ending quest for the security of marriage is a"
-					+ " classic SJ trait – ISTJs in particular want to get"
-					+ " their lives settled down and in order as quickly as"
-					+ " they possibly can."
-	},
-	tag: {
-		fullName: "Tag Jones",
-		mbti: "isfp",
-		gender: "male",
-		orientation: "s",
-		mbtiPic: tag-mbti.png,
-		closeupPic: placeholder200x200.png,
-		personalityPic: undefined,
-		rationale: "Sweet, goofy and all-around loveable, Tag played a (well,"
-					+ " slightly under-developed) ISFP. His first function –"
-					+ " introverted feeling – clearly governed his decisions,"
-					+ " as he didn’t let the rules stop him from dating his"
-					+ " boss. His extroverted sensing was expressed through"
-					+ " his goofy, fun-loving nature that kept him scooting"
-					+ " through life by the seat of his pants."
-	}
-}
 
+// Add supporting detail for Friends castmembers to spice up the presentation layer.
+
+var mbtiTvFriends = {
+	attribution: mbtiAttribution.heidi_priebe,
+	friends: {
+		carol: {
+			fullName: "Carol Willick",
+			mbti: "infj",
+			gender: "female",
+			orientation: "lb",
+			mbtiPic: "carol-mbti.png",
+			closeupPic: "placeholder200x200.png",
+			personalityPic: undefined,
+			rationale: "Though she was caring by nature, Carol was definitely"
+						+ " a feeler second and an intuitive first. She took time"
+						+ " to realize her feelings for Susan – she needed a"
+						+ " same-sex encounter to actually happen before she was"
+						+ " able to come to terms with her own sexual orientation."
+						+ " After that point, Carol’s inability to keep living a"
+						+ " lie was a classic INFJ move. She remained true to"
+						+ " herself, but showed Ross compassion along the way."
+						+ " Despite not seeing a lot of Carol throughout the show,"
+						+ " her calm, pensive vibe was a dead INFJ giveaway."
+		},
+		chandler: {
+			fullName: "Chandler Bing",
+			mbti: "entp",
+			gender: "male",
+			orientation: "s",
+			mbtiPic: "chandler-mbti.png",
+			closeupPic: "chandler.png",
+			personalityPic: "chandler-2.png",
+			rationale: "Though he flips between displaying introverted and"
+						+ " extroverted characteristics, Chandler’s extroverted"
+						+ " intuition is indubitably his lead function – his"
+						+ " quick wit is his most defining trait. Of all the"
+						+ " characters on the show, Chandler is always the first"
+						+ " to pick up on what’s being left unsaid – and then he"
+						+ " rushes to rectify the situation, regardless of how"
+						+ " inappropriate his comment may be. Classic ENTP."
+		},
+		charlie: {
+			fullName: "Charlie Wheeler",
+			mbti: "intj",
+			gender: "female",
+			orientation: "s",
+			mbtiPic: "charlie-mbti.png",
+			closeupPic: "placeholder200x200.png",
+			personalityPic: undefined,
+			rationale: "Decisive, self-assured and tirelessly intellectual,"
+						+ " Charlie was a textbook INTJ. She allowed research"
+						+ " to rule her life and was attracted to intelligence"
+						+ " in a partner above all else. Her under-developed"
+						+ " introverted feeling was clear in the way she hopped"
+						+ " from partner to partner without concern for their"
+						+ " emotions. Introverted intuition and extroverted"
+						+ " thinking were clearly her stronger suits."
+		},
+		david: {
+			fullName: "David",
+			mbti: "intp",
+			gender: "male",
+			orientation: "s",
+			mbtiPic: "david-mbti.png",
+			closeupPic: "placeholder200x200.png",
+			personalityPic: undefined,
+			rationale: "The brilliant yet hopelessly awkward scientist who left"
+						+ " Phoebe to move to Minsk – who could forget David?"
+						+ " His introverted thinking kept him thoroughly invested"
+						+ " in his research, while his extroverted intuition was"
+						+ " responsible for the hilarious one-liners he"
+						+ " consistently doled out. David was indecisive,"
+						+ " speculative and wholly invested in his work – all"
+						+ " classic INTP traits."
+		},
+		gunther: {
+			fullName: "Gunther",
+			mbti: "isfj",
+			gender: "male",
+			orientation: "s",
+			mbtiPic: "gunther-mbti.png",
+			closeupPic: "placeholder200x200.png",
+			personalityPic: undefined,
+			rationale: "Loyal right to the end, Gunther was the absolute"
+						+ " embodiment of an ISFJ. He was quiet yet devoted,"
+						+ " wanting Rachel to be happy even more than he wanted"
+						+ " to be with her. Though we didn’t see much of this"
+						+ " character on the front line of the show, Friends"
+						+ " just wouldn’t have been the same without Gunther"
+						+ " – offering us the ultimate tale of unrequited love."
+		},
+		jack: {
+			fullName: "Jack Geller",
+			mbti: "istp",
+			gender: "male",
+			orientation: "s",
+			mbtiPic: "jack-mbti.png",
+			closeupPic: "placeholder200x200.png",
+			personalityPic: undefined,
+			rationale:  "Jack Geller has to be the most hilariously underrated"
+						+ " character on the show. Frank, quirky and pervasively"
+						+ " aloof, he plays a typical ISTP. He sees things as they"
+						+ " are – nothing more, nothing less. A typical perceiver,"
+						+ " he lets his wife make most of the important decisions"
+						+ " while he simply comes along for the ride – and"
+						+ " provides unassumingly hilarious commentary."
+		},
+		janice: {
+			fullName: "Janice Litman Goralnik",
+			mbti: "esfj",
+			gender: "female",
+			orientation: "s",
+			mbtiPic: "janice-mbti.png",
+			closeupPic: "placeholder200x200.png",
+			personalityPic: undefined,
+			rationale: "Despite her undeniably irritating catchphrase, OMG"
+						+ " (and voice in general), Janice played a surprisingly"
+						+ " mature character. She cares deeply for the people"
+						+ " around her and remains loyal to a fault to her loved"
+						+ " ones. She wants nothing more than for the people"
+						+ " around her to be happy and well taken care of."
+						+ " Janice was a well-developed ESFJ character who didn’t"
+						+ " deserve the bad reputation that she got."
+		},
+		joey: {
+			fullName: "Joey Tribbiani",
+			mbti: "esfp",
+			gender: "male",
+			orientation: "s",
+			mbtiPic: "joey-mbti.png",
+			closeupPic: "joey.png",
+			personalityPic: "joey-2.png",
+			rationale: "Joey Tribbiani, everyone’s favourite ladies man, plays a"
+						+ " childlike caricature of the ESFP. Highly impulsive and"
+						+ " emotional, Joey’s inferior functions never get"
+						+ " developed and he remains eternally dependent on the"
+						+ " other characters to take care of him. Being the"
+						+ " charming ESFP that he is though, nobody minds. After"
+						+ " all, he’s just so endearing."
+		},
+		kathy: {
+			fullName: "Kathy",
+			mbti: "enfj",
+			gender: "female",
+			orientation: "s",
+			mbtiPic: "kathy-mbti.png",
+			closeupPic: "placeholder200x200.png",
+			personalityPic: undefined,
+			rationale: "Expressive, intuitive and nurturing, Kathy displayed every"
+						+ " quality of a confident ENFJ. Though her romantic"
+						+ " indiscretion may have been a wee bit out of character,"
+						+ " her chemistry with Chandler was undeniable. Her"
+						+ " reactive extroverted feeling ran her life and her"
+						+ " introverted intuition sometimes took a bit of time to"
+						+ " catch up – nonetheless she played an ENFJ character to"
+						+ " a T – or should we say, to an F."
+		},
+		mike: {
+			fullName: "Mike Hannigan",
+			mbti: "estp",
+			gender: "male",
+			orientation: "s",
+			mbtiPic: "mike-mbti.png",
+			closeupPic: "placeholder200x200.png",
+			personalityPic: undefined,
+			rationale: "Goofy, unpredictable and tolerant of Phoebe’s many quirks,"
+						+ " Mike displayed various characteristics of the"
+						+ " easy-going ESTP. He showed confidence in his physical"
+						+ " pursuits (a single game of ping-pong was enough to"
+						+ " make us aware of his competitive nature), an"
+						+ " open-minded attitude, and he was quick to act on his"
+						+ " decisions – once he finally got around to making them."
+						+ " Mike was a textbook ESTP and like most ESTPs, it was"
+						+ " difficult not to love him."
+		},
+		monica: {
+			fullName: "Monica Geller",
+			mbti: "estj",
+			gender: "female",
+			orientation: "s",
+			mbtiPic: "monica-mbti.png",
+			closeupPic: "monica.png",
+			personalityPic: "monica-2.png",
+			rationale: "Opinionated, high-strung and perfectionistic, Monica is a"
+						+ " classic ESTJ. She is sure of what she wants and moves"
+						+ " confidently toward her goals in any situation. She"
+						+ " feeds off the energy of others but also believes that"
+						+ " everything and everyone has its proper place – making"
+						+ " her just a wee bit bossy. If her cleaning habits don’t"
+						+ " convince you of her personality type, her attitude as"
+						+ " a chef certainly will."
+		},
+		paul: {
+			fullName: "Paul Stevens",
+			mbti: "infp",
+			gender: "male",
+			orientation: "s",
+			mbtiPic: "paul-mbti.png",
+			closeupPic: "placeholder200x200.png",
+			personalityPic: undefined,
+			rationale: "Okay, we may be reaching a bit here – Friends was severely"
+						+ " lacking in INFP characters. The closest appropriation"
+						+ " we got was Bruce Willis’s fantastic portrayal of Paul,"
+						+ " the no-nonsense father of Ross’s young flame"
+						+ " Elizabeth. As the series unfolded, we saw a much"
+						+ " softer side to Paul – one that revealed a rich inner"
+						+ " emotional world. One so rich, in fact, that Rachel had"
+						+ " to break up with him for his overly-emotional"
+						+ " tendencies. But hey, he was a neat guy. And his"
+						+ " self-pep-talk was a hilarious display of introverted"
+						+ " feeling."
+		},
+		pete: {
+			fullName: "Pete Becker",
+			mbti: "entj",
+			gender: "male",
+			orientation: "s",
+			mbtiPic: "pete-mbti.png",
+			closeupPic: "placeholder200x200.png",
+			personalityPic: undefined,
+			rationale: "Successful, organized and goal oriented to a fault, Pete"
+						+ " was the perfect example of a fully-thriving ENTJ. He"
+						+ " latched quickly onto new challenges regardless of"
+						+ " what they entailed – from starting a multi-million"
+						+ " dollar company to becoming the Ultimate Fighting"
+						+ " Champion. Determined, personable and successful, Pete"
+						+ " was an ENTJ through and through."
+		},
+		phoebe: {
+			fullName: "Phoebe Buffay",
+			mbti: "enfp",
+			gender: "female",
+			orientation: "s",
+			mbtiPic: "phoebe-mbti.png",
+			closeupPic: "phoebe.png",
+			personalityPic: "phoebe-2.png",
+			rationale: "Zany, creative and full of new ideas, Phoebe Buffay plays"
+						+ " an exaggerated version of the classic ENFP. No"
+						+ " speculation is too out-there for this unconventional"
+						+ " character who lets her extroverted intuition run wild"
+						+ " when it comes to evaluating her career and romance"
+						+ " options. When she needs to make a decision, Phoebe"
+						+ " uses a strong set of internal morals to govern her."
+						+ " She is a classic ENFP – if her song lyrics won’t"
+						+ " convince you, her outlandish actions will."
+		},
+		rachel: {
+			fullName: "Rachel Green",
+			mbti: "esfp",
+			gender: "female",
+			orientation: "s",
+			mbtiPic: "rachel-mbti.png",
+			closeupPic: "rachel.png",
+			personalityPic: "rachel-2.png",
+			rationale: "Rachel embodies a realistic, well-developed ESFP character"
+						+ " who plays on her strengths. She uses extroverted"
+						+ " sensing to establish a successful career in the"
+						+ " fashion industry and introverted feeling to nurture"
+						+ " deep, caring relationships with those around her. She"
+						+ " is the ESFP we all wish we had in our lives"
+						+ " – spontaneous, enthusiastic and funny yet also"
+						+ " responsible, driven and grounded. Rachel embodies an"
+						+ " excellent depiction of a mature ESFP."
+		},
+		ross: {
+			fullName: "Ross Geller",
+			mbti: "istj",
+			gender: "male",
+			orientation: "s",
+			mbtiPic: "ross-mbti.png",
+			closeupPic: "ross.png",
+			personalityPic: "ross-2.png",
+			rationale:  "Focused, detail-oriented and just a little bit irritable,"
+						+ " Ross displays undeniable ISTJ characteristics. Though"
+						+ " the nature of the show focuses mainly on his feelings,"
+						+ " Ross is a thinker at heart. He is drawn to"
+						+ " intellectual pursuits and derives energy through his"
+						+ " inner world of thoughts and, well, dinosaurs. His"
+						+ " never-ending quest for the security of marriage is a"
+						+ " classic SJ trait – ISTJs in particular want to get"
+						+ " their lives settled down and in order as quickly as"
+						+ " they possibly can."
+		},
+		tag: {
+			fullName: "Tag Jones",
+			mbti: "isfp",
+			gender: "male",
+			orientation: "s",
+			mbtiPic: "tag-mbti.png",
+			closeupPic: "placeholder200x200.png",
+			personalityPic: undefined,
+			rationale: "Sweet, goofy and all-around loveable, Tag played a (well,"
+						+ " slightly under-developed) ISFP. His first function –"
+						+ " introverted feeling – clearly governed his decisions,"
+						+ " as he didn’t let the rules stop him from dating his"
+						+ " boss. His extroverted sensing was expressed through"
+						+ " his goofy, fun-loving nature that kept him scooting"
+						+ " through life by the seat of his pants."
+		}
+	},
+	getAttribution: function() { return this.attribution },
+	getProfile: function(firstName) { return this.friends[firstName] },
+	getFullName: function(firstName) { return this.friends[firstName].fullName },
+	getMbti: function(firstName) { return this.friends[firstName].mbti },
+	getGender: function(firstName) { return this.friends[firstName].gender },
+	getOrientation: function(firstName) { return this.friends[firstName].orientation },
+	getMbtiPic: function(firstName) { return mbtiModel.imgDir + "/" 
+						+ this.friends[firstName].mbtiPic },
+	getCloseupPic: function(firstName) { return mbtiModel.imgDir + "/" 
+						+ this.friends[firstName].closeupPic },
+	getPersonalityPic: function(firstName) { return mbtiModel.imgDir + "/" 
+						+ this.friends[firstName].personalityPic },
+	getRationale: function(firstName) { return this.friends[firstName].rationale }
+};
+
+// Function: unitTests
+// Usage: if (mbtiModel.unitTests()) console.log("passed");
+// --------------------------------------------------------
+// Returns boolean true if all the unit tests for the 
+// MBTI (Meyers Briggs Type Indicator) model pass.
+
+function unitTests() {
+	console.log("model.unitTests");
+	var result = true;
+	var pic = this.attribution.getPic("heidi_priebe");
+	result = (pic === mbtiModel.imgDir + "/" + "heidi_priebe.png");
+	if (result) {
+		pic = this.tvFriends.getMbtiPic("ross");
+		result = (pic === mbtiModel.imgDir + "/" + "ross-mbti.png");
+	}
+	if (result) {
+		var profile = this.tvFriends.getProfile("ross");
+		console.log(profile);
+		result = (profile.fullName === "Ross Geller");
+	}
+	if (result) {
+		var rationale = this.tvFriends.getRationale("ross");
+		console.log(rationale);
+		result = (rationale) ? true : false;
+	}
+	if (result) {
+		var video = this.videos.getVideo("infj");
+		console.log(rationale);
+		result = (video === "https://youtu.be/d4dLLS-DQfA?list=PL6rzdODmcL641s7WiVwaAAMlTrwnI1bCA");
+	}
+	if (result) {
+		var infjExpectedMatches = ["entp", "enfp"]
+		var bestMatches = this.bestMatches.getBestMatches("infj");
+			matches: ["entp", "enfp"],
+		console.log(bestMatches);
+		result = (bestMatches.join('') === infjExpectedMatches.join(''));
+	}
+	if (result) {
+		var expectedMaleResults = ["joey"];
+		var expectedFemaleResults = ["rachel"];
+		var mResults = this.profiles.getGenderInstances("esfp", "male");
+		console.log(mResults);
+		var fResults = this.profiles.getGenderInstances("esfp", "female");
+		console.log(fResults);
+		result = (mResults.pop() == expectedMaleResults.pop() 
+				&& fResults.pop() == expectedFemaleResults.pop());
+	}
+	return result;
+}
