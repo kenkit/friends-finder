@@ -8,20 +8,22 @@ var mbtiAttribution {
 	michael_pierce: {
 		fullName: "Michael Pierce",
 		video: "https://www.youtube.com/watch?v=5uKaFveOhXY",
-		pic: undefined,
+		pic: undefined
 	},
 	heidi_priebe: {
 		fullName: "Heide Priebe",
 		link: "http://tcat.tc/1PgB8Af",
-		pic: undefined,
+		pic: heidi_priebe.png
 	},
 	brenda_ellis: {
 		fullName: "Brenda Ellis",
-		link: "http://personalitypage.com/html/partners.html"
+		link: "http://personalitypage.com/html/partners.html",
+		pic: undefined
 	},
 	jack_falt: {
 		fullName: "Jack Falt",
-		link: "http://users.trytel.com/jfalt/Tables/mbti-des.html"
+		link: "http://users.trytel.com/jfalt/Tables/mbti-des.html",
+		pic: undefined
 	}
 }
 
@@ -863,6 +865,8 @@ var tvFriends = {
 		gender: "female",
 		orientation: "lb",
 		mbtiPic: carol-mbti.png,
+		closeupPic: placeholder200x200.png,
+		personalityPic: undefined,
 		rationale: "Though she was caring by nature, Carol was definitely"
 					+ " a feeler second and an intuitive first. She took time"
 					+ " to realize her feelings for Susan – she needed a"
@@ -897,7 +901,7 @@ var tvFriends = {
 		gender: "female",
 		orientation: "s",
 		mbtiPic: charlie-mbti.png,
-		closeupPic: undefined,
+		closeupPic: placeholder200x200.png,
 		personalityPic: undefined,
 		rationale: "Decisive, self-assured and tirelessly intellectual,"
 					+ " Charlie was a textbook INTJ. She allowed research"
@@ -914,7 +918,7 @@ var tvFriends = {
 		gender: "male",
 		orientation: "s",
 		mbtiPic: david-mbti.png,
-		closeupPic: undefined,
+		closeupPic: placeholder200x200.png,
 		personalityPic: undefined,
 		rationale: "The brilliant yet hopelessly awkward scientist who left"
 					+ " Phoebe to move to Minsk – who could forget David?"
@@ -931,7 +935,7 @@ var tvFriends = {
 		gender: "male",
 		orientation: "s",
 		mbtiPic: gunther-mbti.png,
-		closeupPic: undefined,
+		closeupPic: placeholder200x200.png,
 		personalityPic: undefined,
 		rationale: "Loyal right to the end, Gunther was the absolute"
 					+ " embodiment of an ISFJ. He was quiet yet devoted,"
@@ -947,7 +951,7 @@ var tvFriends = {
 		gender: "male",
 		orientation: "s",
 		mbtiPic: jack-mbti.png,
-		closeupPic: undefined,
+		closeupPic: placeholder200x200.png,
 		personalityPic: undefined,
 		rationale:  "Jack Geller has to be the most hilariously underrated"
 					+ " character on the show. Frank, quirky and pervasively"
@@ -963,7 +967,7 @@ var tvFriends = {
 		gender: "female",
 		orientation: "s",
 		mbtiPic: janice-mbti.png,
-		closeupPic: undefined,
+		closeupPic: placeholder200x200.png,
 		personalityPic: undefined,
 		rationale: "Despite her undeniably irritating catchphrase, OMG"
 					+ " (and voice in general), Janice played a surprisingly"
@@ -996,7 +1000,7 @@ var tvFriends = {
 		gender: "female",
 		orientation: "s",
 		mbtiPic: kathy-mbti.png,
-		closeupPic: undefined,
+		closeupPic: placeholder200x200.png,
 		personalityPic: undefined,
 		rationale: "Expressive, intuitive and nurturing, Kathy displayed every"
 					+ " quality of a confident ENFJ. Though her romantic"
@@ -1013,7 +1017,7 @@ var tvFriends = {
 		gender: "male",
 		orientation: "s",
 		mbtiPic: mike-mbti.png,
-		closeupPic: undefined,
+		closeupPic: placeholder200x200.png,
 		personalityPic: undefined,
 		rationale: "Goofy, unpredictable and tolerant of Phoebe’s many quirks,"
 					+ " Mike displayed various characteristics of the"
@@ -1048,7 +1052,7 @@ var tvFriends = {
 		gender: "male",
 		orientation: "s",
 		mbtiPic: paul-mbti.png,
-		closeupPic: undefined,
+		closeupPic: placeholder200x200.png,
 		personalityPic: undefined,
 		rationale: "Okay, we may be reaching a bit here – Friends was severely"
 					+ " lacking in INFP characters. The closest appropriation"
@@ -1068,7 +1072,7 @@ var tvFriends = {
 		gender: "male",
 		orientation: "s",
 		mbtiPic: pete-mbti.png,
-		closeupPic: undefined,
+		closeupPic: placeholder200x200.png,
 		personalityPic: undefined,
 		rationale: "Successful, organized and goal oriented to a fault, Pete"
 					+ " was the perfect example of a fully-thriving ENTJ. He"
@@ -1139,7 +1143,7 @@ var tvFriends = {
 		gender: "male",
 		orientation: "s",
 		mbtiPic: tag-mbti.png,
-		closeupPic: undefined,
+		closeupPic: placeholder200x200.png,
 		personalityPic: undefined,
 		rationale: "Sweet, goofy and all-around loveable, Tag played a (well,"
 					+ " slightly under-developed) ISFP. His first function –"
