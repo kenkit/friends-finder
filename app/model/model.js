@@ -5,28 +5,28 @@ var assessmentMbti = [
 ];
 
 var mbtiAttribution {
-	pierce_michael: {
+	michael_pierce: {
 		fullName: "Michael Pierce",
 		video: "https://www.youtube.com/watch?v=5uKaFveOhXY",
 		pic: undefined,
 	},
-	priebe_heidi: {
+	heidi_priebe: {
 		fullName: "Heide Priebe",
 		link: "http://tcat.tc/1PgB8Af",
 		pic: undefined,
 	},
-	best_match: {
-		fullName: "Best Match",
-		link: undefined
+	brenda_ellis: {
+		fullName: "Brenda Ellis",
+		link: "http://personalitypage.com/html/partners.html"
 	},
-	mbti_descriptors: {
-		fullName: "Some One",
+	jack_falt: {
+		fullName: "Jack Falt",
 		link: "http://users.trytel.com/jfalt/Tables/mbti-des.html"
 	}
 }
 
 var mbtiVideos = {
-	attribution: mbtiAttribution.pierce_michael,
+	attribution: mbtiAttribution.michael_pierce,
 	overview: "https://www.youtube.com/watch?v=5uKaFveOhXY",
 	types: {
 		enfj: "https://youtu.be/XcrQBKncaJc?list=PL6rzdODmcL641s7WiVwaAAMlTrwnI1bCA",
@@ -54,7 +54,7 @@ var mbtiVideos = {
 // 2. Judgers balance perceivers
 //
 var mbtiBestMatches = {
-	attribution: mbtiAttribution.best_match,
+	attribution: mbtiAttribution.brenda_ellis,
 	types: {
 		enfj: {
 			matches: ["infp", "isfp"],
@@ -124,7 +124,7 @@ var mbtiBestMatches = {
 }
 
 var mbtiDescriptors = {
-	attribution: mbtiAttribution.mbti_descriptors,
+	attribution: mbtiAttribution.jack_falt,
 	types: {
 		enfj: {
 			kierseyTitle: "The Teacher"
@@ -178,7 +178,7 @@ var mbtiDescriptors = {
 }
 
 var mbtiPersonalities = {
-	attribution: mbtiAttribution.priebe_heidi,
+	attribution: mbtiAttribution.heidi_priebe,
 	types: {
 		enfj: {
 			instances : ["kathy"],
@@ -341,7 +341,7 @@ var mbtiPersonalities = {
 						+ " kink websites exist.",
 			yourHell: "Freedom of speech is revoked from the constitution."
 						+ " Voicing your opinion in any way is now illegal.",
-			atAParty: "FIX ME"
+			atAParty: "Spurs a massive argument then leaves."
 		},
 		esfj: {
 			instances : ["janice"],
@@ -426,7 +426,7 @@ var mbtiPersonalities = {
 						+ " forget it.",
 			yourHell: "You are stuck in a room by yourself for the rest of"
 						+ " eternity.",
-			atAParty: "FIX ME"
+			atAParty: "Table dances."
 		},
 		estj: {
 			instances : ["monica"],
@@ -464,7 +464,8 @@ var mbtiPersonalities = {
 						+ " all of your major life decisions. You have to do"
 						+ " whatever they say and are powerless to argue or"
 						+ " reason with them.",
-			atAParty: "FIX ME"
+			atAParty: "Makes boisterous, usually offensive jokes to anyone"
+						+ " who’s willing to listen."
 		},
 		estp: {
 			instances: ["mike"],
@@ -1150,20 +1151,3 @@ var tvFriends = {
 	}
 }
 
-console.log("INFJ title: ", friendsMbti.getTitle("infj"));
-console.log("Types:", friendsMbti.getTypes());
-
-/*
-title: "The Inspirers",
-instances : [{ name:, why:}]
-singleBecause: 
-readyWhen:
-kindOfGirlfriend:
-showLikeBy: 
-mostAttractiveQuality: { quality:, description}
-inBed: 
-yourHell:
-atAParty:
-bestMatches: [this.intj, this.infj],
-learnMore : { attribution: "Michael Pierce", video: }
-*/
