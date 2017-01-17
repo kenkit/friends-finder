@@ -343,7 +343,6 @@ function scoreSurvey(survey) {
 		mbtiType += (results.f >= results.t) ? 'f' : 't';
 		mbtiType += (results.p >= results.j) ? 'p' : 'j';
 	}
-	console.log(mbtiType);
 	return mbtiType;		
 }
 

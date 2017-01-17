@@ -1,6 +1,6 @@
 var express = require("express");
 var bodyParser = require("body-parser");
-var mbtiModel = require("./app/model/model");
+var mbtiModel = require("./app/model/model.js");
 
 var app = express();
 var PORT = process.env.PORT || 8080;
