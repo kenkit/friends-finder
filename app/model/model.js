@@ -90,8 +90,8 @@ var mbtiSurvey = {
 		{
 			q: "It's frustrating when people don't consider",
 			a: [
-				["others' feelings", "n:1"],
-				["the facts", "s:1"]
+				["others' feelings", "f:2"],
+				["the facts", "t:2"]
 			]
 		},
 		{
@@ -153,8 +153,8 @@ var mbtiSurvey = {
 		{
 			q: "At home, you put more effort into",
 			a: [
-				["tidying up", "s:1"],
-				["decorating", "n:1"]
+				["tidying up", "s:1,f:1"],
+				["decorating", "n:1,t:1"]
 			]
 		},
 		{
@@ -172,17 +172,17 @@ var mbtiSurvey = {
 			]
 		},
 		{
-			q: "Is it worse to be",
+			q: "It is worse to be",
 			a: [
 				["scatterbrained", "j:1"],
-				["stuck in your head", "p:1"]
+				["stuck in your ways", "p:1"]
 			]
 		},
 		{
 			q: "It's more natural for you to",
 			a: [
-				["wary of new situations", "j:1"],
-				["see the good in everyone", "p:1"]
+				["be wary of new situations", "j:1,t:0.5"],
+				["see the good in everyone", "p:1,f:0.5"]
 			]
 		},
 		{
@@ -203,8 +203,8 @@ var mbtiSurvey = {
 			q: "You place a high value on membership in"
 			   + " clubs and organizations",
 			a: [
-				["yes", "e:1"],
-				["no", "i:1"]
+				["yes", "e:1,f:0.5"],
+				["no", "i:1,t:0.5"]
 			]
 		},
 		{
@@ -217,8 +217,8 @@ var mbtiSurvey = {
 		{
 			q: "You reflect more often on your",
 			a: [
-				["short term goals", "p:2"],
-				["long term goals", "j:2"]
+				["short term goals", "p:1"],
+				["long term goals", "j:1"]
 			]
 		},
 		{
@@ -231,7 +231,7 @@ var mbtiSurvey = {
 		{
 			q: "You make decisions based upon",
 			a: [
-				["logicl", "t:2"],
+				["logic", "t:2"],
 				["feeling", "f:2"]
 			]
 		},

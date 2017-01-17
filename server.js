@@ -18,7 +18,7 @@ app.get("/", function(req, res) {
 // Respond to survey submit button.
 app.get("/survey", function(req, res) {
 	var mbtiType = mbtiModel.survey.scoreSurvey(req.query);
-	res.end("You are a " + mbtiType);
+	res.end("You are an " + mbtiType);
 });
 
 // Listen for incoming requests from the client.
