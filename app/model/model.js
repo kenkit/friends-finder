@@ -15,19 +15,6 @@
 // TODO: Much of this could probably be screen-scraped with Cheerio.
 //---------------------------------------------------------------------------
 
-var mbtiModel = {
-	imgDir: "./app/public/assets/img",
-	assessment: mbtiOnlineAssessments,
-	survey: mbtiSurvey,
-	attribution: mbtiAttribution,
-	videos: mbtiVideos,
-	bestMatches: mbtiBestMatches,
-	descriptors: mbtiDescriptors,
-	profiles: mbtiProfiles,
-	tvFriends: mbtiTvFriends,
-	unitTests: unitTests
-};
-
 // Give credit for various web sources I've aggregated to create this
 // MBTI-based compatibility model.
 
@@ -263,12 +250,24 @@ var mbtiSurvey = {
 			]
 		}
 	],
-	buildSurveyHtml: buildSurveyHtml
+	buildSurveyHtml: buildSurveyHtml,
+	scoreSurvey: scoreSurvey
 };
 
-function buildSurveyHtml() {
+// Function: buildSurveyHtml
+// Usage: var formHtml = mbtiModel.survey.buildSurveyHtml("/survey", "post");
+// --------------------------------------------------------------------------
+// Returns an html form of MBTI survey questions.
+// TODO: Make this SPA-friendly.
+
+function buildSurveyHtml(actionRoute, method) {
 	var qArray = this.questions;
-	var html  = "<legend>\n";
+	var html ="";
+	html += "<html><body>\n";
+	html += "<form action='" + actionRoute + "'";
+	html += "method='" + method + "'>\n";
+	html += "<fieldset>\n";
+	html += "<legend>\n";
 	html += "\t" + this.title + "\n";
 	html += "</legend>\n";
 	html += "\t<ol>\n";
@@ -284,7 +283,11 @@ function buildSurveyHtml() {
 		}
 		html += "\t\t</p></li>\n";
 	}
-	html += "\t</ol>";
+	html += "\t</ol>\n";
+	html += "</fieldset>\n";
+	html += "<input type='submit' value='Submit'>\n";
+	html += "</form>\n";
+	html += "</body></html>\n";
 	return html;
 }
 
@@ -295,6 +298,52 @@ function makeRadioButton(rbName, rbValue) {
 	html += "required='required' />&nbsp;";
 	html += rbValue + "</label>\n";
 	return html;
+}
+
+// Function: scoreSurvey
+// Usage: var mbtiStr = mbtiModel.survey.scoreSurvey(surveyJson);
+// --------------------------------------------------------------
+// Returns the mbti string (e.g., "entp") for the completed survey.
+//
+// The input survey json is structured like this:
+//
+// surveyJson = {q1: 'naturally', q2: 'facts and proceduress', ..};
+
+function scoreSurvey(survey) {
+	var results = {};
+	for (q in survey) {
+		var surveyAnsStr = survey[q];
+		var qIndex = parseInt(q.slice(1));
+		var surveyArray = this.questions;
+		// questions = [
+		//	{q:"Social interaction comes to you",
+		//   a: [['naturally','e:2'],['with effort', 'i:2']]
+		//  },
+		//  {}
+		// ]
+		var ansArray = this.questions[qIndex].a;
+		for (var i = 0; i < ansArray.length; i++) {
+			if (surveyAnsStr == ansArray[i][0]) {
+				var mbtiWeight = ansArray[i][1].split(',');
+				for (var j = 0; j < mbtiWeight.length; j++) {
+					var letter = mbtiWeight[j].split(":")[0];
+					var weight = parseFloat(mbtiWeight[j].split(":")[1]);
+					if (results[letter]) {
+						results[letter] += weight;
+					} else {
+						results[letter] = weight
+					}
+				}
+			}
+		}
+	}
+	var mbtiType = "";
+	mbtiType += (results.e >= results.i) ? 'e' : 'i';
+	mbtiType += (results.s >= results.n) ? 's' : 'n';
+	mbtiType += (results.f >= results.t) ? 'f' : 't';
+	mbtiType += (results.p >= results.j) ? 'p' : 'j';
+	console.log(mbtiType);
+	return mbtiType;		
 }
 
 // Offer video resources for learning more about MBTI to the curious.
@@ -1551,3 +1600,18 @@ function unitTests() {
 	}
 	return result;
 }
+
+var mbtiModel = {
+	imgDir: "./app/public/assets/img",
+	assessment: mbtiOnlineAssessments,
+	survey: mbtiSurvey,
+	attribution: mbtiAttribution,
+	videos: mbtiVideos,
+	bestMatches: mbtiBestMatches,
+	descriptors: mbtiDescriptors,
+	profiles: mbtiProfiles,
+	tvFriends: mbtiTvFriends,
+	unitTests: unitTests
+};
+
+module.exports = mbtiModel;
