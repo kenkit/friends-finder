@@ -111,8 +111,8 @@ var mbtiSurvey = {
 		{
 			q: "You describe yourself as more",
 			a: [
-				["open", "e:1"],
-				["private", "i:1"]
+				["open", "e:2"],
+				["private", "i:2"]
 			]
 		},
 		{
@@ -311,37 +311,38 @@ function makeRadioButton(rbName, rbValue) {
 
 function scoreSurvey(survey) {
 	var results = {};
-	for (q in survey) {
-		var surveyAnsStr = survey[q];
-		var qIndex = parseInt(q.slice(1));
-		var surveyArray = this.questions;
-		// questions = [
-		//	{q:"Social interaction comes to you",
-		//   a: [['naturally','e:2'],['with effort', 'i:2']]
-		//  },
-		//  {}
-		// ]
-		var ansArray = this.questions[qIndex].a;
-		for (var i = 0; i < ansArray.length; i++) {
-			if (surveyAnsStr == ansArray[i][0]) {
-				var mbtiWeight = ansArray[i][1].split(',');
-				for (var j = 0; j < mbtiWeight.length; j++) {
-					var letter = mbtiWeight[j].split(":")[0];
-					var weight = parseFloat(mbtiWeight[j].split(":")[1]);
-					if (results[letter]) {
-						results[letter] += weight;
-					} else {
-						results[letter] = weight
+	var mbtiType = "";
+	if (survey) {
+		for (q in survey) {
+			var surveyAnsStr = survey[q];
+			var qIndex = parseInt(q.slice(1));
+			var surveyArray = this.questions;
+			// questions = [
+			//	{q:"Social interaction comes to you",
+			//   a: [['naturally','e:2'],['with effort', 'i:2']]},
+			//  {..},
+			// ]
+			var ansArray = this.questions[qIndex].a;
+			for (var i = 0; i < ansArray.length; i++) {
+				if (surveyAnsStr == ansArray[i][0]) {
+					var mbtiWeight = ansArray[i][1].split(',');
+					for (var j = 0; j < mbtiWeight.length; j++) {
+						var letter = mbtiWeight[j].split(":")[0];
+						var weight = parseFloat(mbtiWeight[j].split(":")[1]);
+						if (results[letter]) {
+							results[letter] += weight;
+						} else {
+							results[letter] = weight
+						}
 					}
 				}
 			}
 		}
+		mbtiType += (results.e >= results.i) ? 'e' : 'i';
+		mbtiType += (results.s >= results.n) ? 's' : 'n';
+		mbtiType += (results.f >= results.t) ? 'f' : 't';
+		mbtiType += (results.p >= results.j) ? 'p' : 'j';
 	}
-	var mbtiType = "";
-	mbtiType += (results.e >= results.i) ? 'e' : 'i';
-	mbtiType += (results.s >= results.n) ? 's' : 'n';
-	mbtiType += (results.f >= results.t) ? 'f' : 't';
-	mbtiType += (results.p >= results.j) ? 'p' : 'j';
 	console.log(mbtiType);
 	return mbtiType;		
 }
