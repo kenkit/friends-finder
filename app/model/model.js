@@ -18,6 +18,7 @@
 var mbtiModel = {
 	imgDir: "./app/public/assets/img",
 	assessment: mbtiOnlineAssessments,
+	survey: mbtiSurvey,
 	attribution: mbtiAttribution,
 	videos: mbtiVideos,
 	bestMatches: mbtiBestMatches,
@@ -26,21 +27,6 @@ var mbtiModel = {
 	tvFriends: mbtiTvFriends,
 	unitTests: unitTests
 };
-
-// The application embeds a weak attempt at assessing MBTI.  More definitive
-// assessments exist.  Offer up some alternative assessment vehicles.
-
-var mbtiOnlineAssessments = [
-	{ name: "John Hawksley", 
-	  desc: "25 questions", 
-	  link: "http://jupiter-34.appspot.com/" },
-	{ name: "Tim Flynn", 
-	  desc: "Similar Minds", 
-	  link: "http://similarminds.com/cgi-bin/jung2.pl" },
-	{ name: "Quroa", 
-	  desc: "Take your pick", 
-	  link: "https://www.quora.com/What-is-the-most-accurate-free-online-Myers-Briggs-test" }
-];
 
 // Give credit for various web sources I've aggregated to create this
 // MBTI-based compatibility model.
@@ -66,11 +52,250 @@ var mbtiAttribution = {
 		link: "http://users.trytel.com/jfalt/Tables/mbti-des.html",
 		pic: undefined
 	},
+	john_hawksley: {
+		fullName: "John Hawksley", 
+		link: "http://jupiter-34.appspot.com/",
+		pic: undefined
+	},
 	getFullName: function(key) { return this[key].fullName },
 	getLink: function(key) { return this[key].link },
 	getPic: function(key) { return (this[key].pic) ? 
 				mbtiModel.imgDir + "/" + this[key].pic : undefined }
 };
+
+// The application embeds a weak attempt at assessing MBTI.  More definitive
+// assessments exist.  Offer up some alternative assessment vehicles.
+
+var mbtiOnlineAssessments = [
+	{ name: "John Hawksley", 
+	  desc: "25 questions", 
+	  link: "http://jupiter-34.appspot.com/" },
+	{ name: "Tim Flynn", 
+	  desc: "Similar Minds", 
+	  link: "http://similarminds.com/cgi-bin/jung2.pl" },
+	{ name: "Quroa", 
+	  desc: "Take your pick", 
+	  link: "https://www.quora.com/What-is-the-most-accurate-free-online-Myers-Briggs-test" }
+];
+
+
+// Add the MBTI survey to the model.
+// The weighting may need to be tweaked.
+
+var mbtiSurvey = {
+	attribution: mbtiAttribution.john_hawksley,
+	title: "Survey Questions",
+	questions: [
+		{
+			q: "Social interaction comes to you",
+			a: [
+				["naturally", "e:2"],
+				["with effort", "i:2"]
+			]
+		},
+		{
+			q: "You are better at learning",
+			a: [
+				["abstract concepts", "n:1"],
+				["facts and procedures", "s:1"]
+			]
+		},
+		{
+			q: "It's frustrating when people don't consider",
+			a: [
+				["others' feelings", "n:1"],
+				["the facts", "s:1"]
+			]
+		},
+		{
+			q: "You usually",
+			a: [
+				["work first, then play", "j:1"],
+				["play first, then work", "p:1"]
+			]
+		},
+		{
+			q: "You are more",
+			a: [
+				["imaginative", "n:2"],
+				["realistic", "s:2"]
+			]
+		},
+		{
+			q: "You describe yourself as more",
+			a: [
+				["open", "e:1"],
+				["private", "i:1"]
+			]
+		},
+		{
+			q: "You favor the path that is more",
+			a: [
+				["conventional", "j:1"],
+				["unconventional", "p:1"]
+			]
+		},
+		{
+			q: "You tend to speak rather",
+			a: [
+				["literally", "s:1"],
+				["figuratively", "n:1"]
+			]
+		},
+		{
+			q: "You would rather rely upon",
+			a: [
+				["careful plans", "j:2"],
+				["improvisation", "p:2"]
+			]
+		},
+		{
+			q: "What's more appealing",
+			a: [
+				["harmony", "f:1"],
+				["success", "t:1"]
+			]
+		},
+		{
+			q: "You work better",
+			a: [
+				["with a deadline", "j:1"],
+				["in you own time", "p:1"]
+			]
+		},
+		{
+			q: "At home, you put more effort into",
+			a: [
+				["tidying up", "s:1"],
+				["decorating", "n:1"]
+			]
+		},
+		{
+			q: "Meeting a new person, you first might try to",
+			a: [
+				["probe how he thinks", "t:1"],
+				["connect to his emotions", "f:1"]
+			]
+		},
+		{
+			q: "Are you more",
+			a: [
+				["sensitive", "f:1"],
+				["impartial", "t:1"]
+			]
+		},
+		{
+			q: "Is it worse to be",
+			a: [
+				["scatterbrained", "j:1"],
+				["stuck in your head", "p:1"]
+			]
+		},
+		{
+			q: "It's more natural for you to",
+			a: [
+				["wary of new situations", "j:1"],
+				["see the good in everyone", "p:1"]
+			]
+		},
+		{
+			q: "You are more mindful of",
+			a: [
+				["the future", "j:1"],
+				["the present", "p:1"]
+			]
+		},
+		{
+			q: "Picking a restuarant, you care more about",
+			a: [
+				["friends' opinions", "f:1"],
+				["ratings and reviews", "t:1"]
+			]
+		},
+		{
+			q: "You place a high value on membership in"
+			   + " clubs and organizations",
+			a: [
+				["yes", "e:1"],
+				["no", "i:1"]
+			]
+		},
+		{
+			q: "At work, you usually",
+			a: [
+				["interact with others", "e:2"],
+				["work alone", "i:2"]
+			]
+		},
+		{
+			q: "You reflect more often on your",
+			a: [
+				["short term goals", "p:2"],
+				["long term goals", "j:2"]
+			]
+		},
+		{
+			q: "Lying up at night, you are more likely",
+			a: [
+				["remembering the events of the day", "s:1"],
+				["struck with brand new ideas", "n:1"]
+			]
+		},
+		{
+			q: "You make decisions based upon",
+			a: [
+				["logicl", "t:2"],
+				["feeling", "f:2"]
+			]
+		},
+		{
+			q: "You have difficulty saying no to people",
+			a: [
+				["yes", "f:1"],
+				["no", "t:1"]
+			]
+		},
+		{
+			q: "You more interested in checking out",
+			a: [
+				["garage sales", "p:1"],
+				["shopping malls", "j:1"]
+			]
+		}
+	],
+	buildSurveyHtml: buildSurveyHtml
+};
+
+function buildSurveyHtml() {
+	var qArray = this.questions;
+	var html  = "<legend>\n";
+	html += "\t" + this.title + "\n";
+	html += "</legend>\n";
+	html += "\t<ol>\n";
+	for (var i = 0; i < qArray.length; i++) {
+		html += "\t\t<li><p>\n";
+		var q = qArray[i].q + " ... ";
+		html += "\t\t\t" + q + "\n";
+		var rbName = "q" + i;
+		var aArray = qArray[i].a;
+		for (var j = 0; j < aArray.length; j++) {
+			var rbVal = aArray[j][0];
+			html += makeRadioButton(rbName, rbVal);
+		}
+		html += "\t\t</p></li>\n";
+	}
+	html += "\t</ol>";
+	return html;
+}
+
+function makeRadioButton(rbName, rbValue) {
+	var html = "\t\t\t<label><input type='radio' ";
+	html += "name='" + rbName + "' ";
+	html += "value='" + rbValue + "' ";
+	html += "required='required' />&nbsp;";
+	html += rbValue + "</label>\n";
+	return html;
+}
 
 // Offer video resources for learning more about MBTI to the curious.
 
@@ -1318,6 +1543,11 @@ function unitTests() {
 		console.log(fResults);
 		result = (mResults.pop() == expectedMaleResults.pop() 
 				&& fResults.pop() == expectedFemaleResults.pop());
+	}
+	if (result) {
+		var surveyHtml = this.survey.buildSurveyHtml();
+		console.log(surveyHtml);
+		result = (surveyHtml) ? true : false;
 	}
 	return result;
 }
