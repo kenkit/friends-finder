@@ -8,8 +8,7 @@ The goal is to create a (mostly) full stack application that leverages node.js a
 
 # Sample Output
 
-![alt tag](app/public/assets/img/sampleReport1.png)
-![alt tag](app/public/assets/img/sampleReport2.png)
+![alt tag](app/public/assets/img/sampleReport.png)
 
 # Attribution
 

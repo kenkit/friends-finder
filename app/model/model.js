@@ -269,6 +269,8 @@ function buildSurveyHtml(actionRoute, method) {
 	html += "<html>\n";
 	html += getHeadHtml();
 	html += "<body>\n";
+	html += getHeaderHtml("Survey");
+	html += "<div><br>\n";
 	html += "<form action='" + actionRoute + "'";
 	html += "method='" + method + "'>\n";
 	html += "<label>Name:&nbsp;<input type='text' name='name' ";
@@ -296,6 +298,7 @@ function buildSurveyHtml(actionRoute, method) {
 	html += "<br>\n";
 	html += "<input type='submit' value='Submit'>\n";
 	html += "</form>\n";
+	html += "</div>\n";
 	html += "</body></html>\n";
 	return html;
 }
@@ -1642,8 +1645,10 @@ function getResultsHtml(mbtiType) {
 	html += "<html>\n";
 	html += getHeadHtml();
 	html += "<body>\n";
-	html += "<p><em>DISCLAIMER</em>: This isn't a normed analysis instrument so take"
-	html += " the results very lightly.</p>\n";
+	html += getHeaderHtml("Results");
+	html += "<div><br>\n";
+	html += "<p><em>DISCLAIMER</em>: This isn't a normed analysis instrument so <em>take"
+	html += " the results very lightly</em>.  The Meyers-Briggs assessment is likely to be inaccurate.</p>\n";
 	html += "<h2>Personality Assessment</h2>\n";
 	html += "<p>You seem closest in your Meyers-Briggs personality assessment to an: " ;
 	html += "<em>" + mbtiType.toUpperCase() + "</em></p>\n"; 
@@ -1733,6 +1738,7 @@ function getResultsHtml(mbtiType) {
 	let imgFile = mbtiAttribution.getPic(key);
 	html += "<em>*MBTI profiles courtesy of <a href='" + link + "'>" + fullName + "</a></em></p>\n";
 	html += "<a href='" + link + "'><img src='" + imgFile + "' alt='" + fullName + "' height='75em' width='75em'></a>\n";
+	html += "</div>\n";
 	html += "</body>\n";
 	html += "</html>\n";
 	return html;
@@ -1755,6 +1761,21 @@ function getHeadHtml() {
 	html += "\t<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>\n";
 	html += "\t<link href='assets/css/view.css' rel='stylesheet' type='text/css'>\n";
 	html += "</head>\n";
+	return html;
+}
+
+// Function: getHeaderHtml
+// Usage: var headerHtml = mbtiModel.getHeaderHtml("Survey");
+// ----------------------------------------------------------
+// Returns standardized title header for the app.
+
+function getHeaderHtml(customStr) {
+	var html = "";
+	html += "<div>\n";
+	html += "<h1 class='well jumbotron-titletext'>\n";
+	html += "<span class='red-text'>Adept</span>FriendsFinder &#174;&nbsp;" + customStr + "\n";
+	html += "</h1>\n";
+	html += "</div>\n";
 	return html;
 }
 

@@ -21,8 +21,15 @@
 	width: 100%;
 	margin-top: 0;
 	margin-bottom: 0;
+	color: white;
+	font-family: 'Anton', sans-serif;
+	font-style: italic;
 	box-sizing: border-box;
 	padding: 0;
+}
+
+.body-text {
+	float: left;
 }
 
 .jumbotron-button a {
