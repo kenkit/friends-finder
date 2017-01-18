@@ -13,6 +13,8 @@
 // to the cast of the popular TV series, Friends.
 //
 // TODO: Much of this could probably be screen-scraped with Cheerio.
+//
+// Copyright (C) Glenn Streiff 2017
 //---------------------------------------------------------------------------
 
 // Give credit for various web sources I've aggregated to create this
@@ -266,6 +268,9 @@ function buildSurveyHtml(actionRoute, method) {
 	html += "<html><body>\n";
 	html += "<form action='" + actionRoute + "'";
 	html += "method='" + method + "'>\n";
+	html += "<label>Name:&nbsp;<input type='text' name='name' ";
+	html +=	"placeholder='Enter your name' required='required' /></label>\n";
+	html +=	"<br><br>\n";
 	html += "<fieldset>\n";
 	html += "<legend>\n";
 	html += "\t" + this.title + "\n";
@@ -285,6 +290,7 @@ function buildSurveyHtml(actionRoute, method) {
 	}
 	html += "\t</ol>\n";
 	html += "</fieldset>\n";
+	html += "<br>\n";
 	html += "<input type='submit' value='Submit'>\n";
 	html += "</form>\n";
 	html += "</body></html>\n";
@@ -314,6 +320,7 @@ function scoreSurvey(survey) {
 	var mbtiType = "";
 	if (survey) {
 		for (q in survey) {
+			if (q == "name") continue;
 			var surveyAnsStr = survey[q];
 			var qIndex = parseInt(q.slice(1));
 			var surveyArray = this.questions;
@@ -517,7 +524,7 @@ var mbtiProfiles = {
 	attribution: mbtiAttribution.heidi_priebe,
 	types: {
 		enfj: {
-			instances : ["kathy"],
+			instances : ["Kathy"],
 			singleBecause: "You smothered the crap out of your last partner,"
 						+ " who genuinely did not have anything left to 'Open"
 						+ " up' about.",
@@ -556,7 +563,7 @@ var mbtiProfiles = {
 						+ " at the party."
 		},
 		enfp: {
-			instances : ["phoebe"],
+			instances : ["Phoebe"],
 			singleBecause: "You have the attention span of a goldfish"
 						+ " and cannot decide what you want.",
 			readyWhen: "You find someone just unattainable enough to intrigue"
@@ -600,7 +607,7 @@ var mbtiProfiles = {
 						+ " for five minutes."
 		},
 		entj: {
-			instances : ["pete"],
+			instances : ["Pete"],
 			singleBecause: "You have impossibly high standards and you’d"
 						+ " probably just marry yourself if it were legal.",
 			readyWhen: "You decide that it is practical to do so, at which"
@@ -643,7 +650,7 @@ var mbtiProfiles = {
 						+ " fourteen competitive job offers."
 		},
 		entp: {
-			instances : ["chandler"],
+			instances : ["Chandler"],
 			singleBecause: "You’re not. You’re probably already in a couple"
 						+ " of relationships that you’ve just forgotten"
 						+ " about.",
@@ -680,7 +687,7 @@ var mbtiProfiles = {
 			atAParty: "Spurs a massive argument then leaves."
 		},
 		esfj: {
-			instances : ["janice"],
+			instances : ["Janice"],
 			singleBecause: "You have a savior complex and keep going for"
 						+ " wounded people who can’t properly love you back.",
 			readyWhen: "You’re finally attracted to someone who has his or her"
@@ -725,7 +732,7 @@ var mbtiProfiles = {
 			atAParty: "Tells everyone else’s secrets."
 		},
 		esfp: {
-			instances : ["rachel", "joey"],
+			instances : ["Rachel", "Joey"],
 			singleBecause: "You’ve hooked up with everyone you’re mildly"
 						+ " interested in and now you’re bored.",
 			readyWhen: "You want to, pretty much. Who can resist you?",
@@ -765,7 +772,7 @@ var mbtiProfiles = {
 			atAParty: "Table dances."
 		},
 		estj: {
-			instances : ["monica"],
+			instances : ["Monica"],
 			singleBecause: "Those helpful life pointers you gave your last"
 						+ " date were actually pretty insulting.",
 			readyWhen: "You meet an Anastasia Steele type who just wants to"
@@ -804,7 +811,7 @@ var mbtiProfiles = {
 						+ " who’s willing to listen."
 		},
 		estp: {
-			instances: ["mike"],
+			instances: ["Mike"],
 			singleBecause: "You’re having way too much fun sleeping around.",
 			readyWhen: "You start feeling bad about how long your ISFJ hookup"
 						+ " has been doing your laundry for you, at which"
@@ -841,7 +848,7 @@ var mbtiProfiles = {
 			atAParty: "Gets into a bar fight."
 		},
 		infj: {
-			instances : ["carol"],
+			instances : ["Carol"],
 			singleBecause: "You have trust issues.",
 			readyWhen: "Someone you’ve known for an unimaginable amount of"
 						+ " time finally wears you down and convinces you"
@@ -887,7 +894,7 @@ var mbtiProfiles = {
 						+ " with some drunk girl they don’t know."
 		},
 		infp: {
-			instances : ["paul"],
+			instances : ["Paul"],
 			singleBecause: "You idealize the crap out of potential partners"
 						+ " and then get upset when their reality doesn’t"
 						+ " measure up.",
@@ -930,7 +937,7 @@ var mbtiProfiles = {
 						+ " and then drunk dials their ex and cries."
 		},
 		intj: {
-			instances : ["charlie"],
+			instances : ["Charlie"],
 			singleBecause: "You over-analyze social interactions to the point"
 						+ " where it seems easier to just avoid them altogether.",
 			readyWhen: "A hell-bent ENFP follows you around for a long enough"
@@ -978,7 +985,7 @@ var mbtiProfiles = {
 						+ " morning-after hangover."
 		},
 		intp: {
-			instances : ["david"],
+			instances : ["David"],
 			singleBecause: "You haven’t left your apartment in three months.",
 			readyWhen: "You meet someone just like yourself on World of"
 						+ " Warcraft.",
@@ -1023,7 +1030,7 @@ var mbtiProfiles = {
 						+ " accidentally ending up in the next town over."
 		},
 		isfj: {
-			instances : ["gunther"],
+			instances : ["Gunther"],
 			singleBecause: "You’re attracted to carefree personalities, who"
 						+ " then take the relationship twelve hundred times"
 						+ " less seriously than you do.",
@@ -1062,7 +1069,7 @@ var mbtiProfiles = {
 						+ " of their friends starts puking first.",
 		},
 		isfp: {
-			instances : ["tag"],
+			instances : ["Tag"],
 			singleBecause: "You haven’t found anyone you love more than you"
 						+ " love Reality TV.",
 			readyWhen: "Someone intrigues you enough to pull you out of your"
@@ -1103,7 +1110,7 @@ var mbtiProfiles = {
 			atAParty: "Secretly hooks up with someone in the basement."
 		},
 		istj: {
-			instances : ["ross"],
+			instances : ["Ross"],
 			singleBecause: "You aren’t a party animal, which you’ve convinced"
 						+ " yourself is all anyone your age wants.",
 			readyWhen: "You finally reach the phase of life where other people"
@@ -1146,7 +1153,7 @@ var mbtiProfiles = {
 						+ " acting like a drunken idiot."
 		},
 		istp: {
-			instances : ["jack"],
+			instances : ["Jack"],
 			singleBecause: "You rely solely on apps to get laid (Mainly"
 						+ " tinder) and don’t see a reason to switch up the"
 						+ " game plan.",
@@ -1236,7 +1243,7 @@ var mbtiProfiles = {
 var mbtiTvFriends = {
 	attribution: mbtiAttribution.heidi_priebe,
 	friends: {
-		carol: {
+		Carol: {
 			fullName: "Carol Willick",
 			mbti: "infj",
 			gender: "female",
@@ -1255,7 +1262,7 @@ var mbtiTvFriends = {
 						+ " Despite not seeing a lot of Carol throughout the show,"
 						+ " her calm, pensive vibe was a dead INFJ giveaway."
 		},
-		chandler: {
+		Chandler: {
 			fullName: "Chandler Bing",
 			mbti: "entp",
 			gender: "male",
@@ -1272,7 +1279,7 @@ var mbtiTvFriends = {
 						+ " rushes to rectify the situation, regardless of how"
 						+ " inappropriate his comment may be. Classic ENTP."
 		},
-		charlie: {
+		Charlie: {
 			fullName: "Charlie Wheeler",
 			mbti: "intj",
 			gender: "female",
@@ -1289,7 +1296,7 @@ var mbtiTvFriends = {
 						+ " emotions. Introverted intuition and extroverted"
 						+ " thinking were clearly her stronger suits."
 		},
-		david: {
+		David: {
 			fullName: "David",
 			mbti: "intp",
 			gender: "male",
@@ -1306,7 +1313,7 @@ var mbtiTvFriends = {
 						+ " speculative and wholly invested in his work – all"
 						+ " classic INTP traits."
 		},
-		gunther: {
+		Gunther: {
 			fullName: "Gunther",
 			mbti: "isfj",
 			gender: "male",
@@ -1322,7 +1329,7 @@ var mbtiTvFriends = {
 						+ " just wouldn’t have been the same without Gunther"
 						+ " – offering us the ultimate tale of unrequited love."
 		},
-		jack: {
+		Jack: {
 			fullName: "Jack Geller",
 			mbti: "istp",
 			gender: "male",
@@ -1338,7 +1345,7 @@ var mbtiTvFriends = {
 						+ " while he simply comes along for the ride – and"
 						+ " provides unassumingly hilarious commentary."
 		},
-		janice: {
+		Janice: {
 			fullName: "Janice Litman Goralnik",
 			mbti: "esfj",
 			gender: "female",
@@ -1355,7 +1362,7 @@ var mbtiTvFriends = {
 						+ " Janice was a well-developed ESFJ character who didn’t"
 						+ " deserve the bad reputation that she got."
 		},
-		joey: {
+		Joey: {
 			fullName: "Joey Tribbiani",
 			mbti: "esfp",
 			gender: "male",
@@ -1371,7 +1378,7 @@ var mbtiTvFriends = {
 						+ " charming ESFP that he is though, nobody minds. After"
 						+ " all, he’s just so endearing."
 		},
-		kathy: {
+		Kathy: {
 			fullName: "Kathy",
 			mbti: "enfj",
 			gender: "female",
@@ -1388,7 +1395,7 @@ var mbtiTvFriends = {
 						+ " catch up – nonetheless she played an ENFJ character to"
 						+ " a T – or should we say, to an F."
 		},
-		mike: {
+		Mike: {
 			fullName: "Mike Hannigan",
 			mbti: "estp",
 			gender: "male",
@@ -1406,7 +1413,7 @@ var mbtiTvFriends = {
 						+ " Mike was a textbook ESTP and like most ESTPs, it was"
 						+ " difficult not to love him."
 		},
-		monica: {
+		Monica: {
 			fullName: "Monica Geller",
 			mbti: "estj",
 			gender: "female",
@@ -1423,7 +1430,7 @@ var mbtiTvFriends = {
 						+ " convince you of her personality type, her attitude as"
 						+ " a chef certainly will."
 		},
-		paul: {
+		Paul: {
 			fullName: "Paul Stevens",
 			mbti: "infp",
 			gender: "male",
@@ -1443,7 +1450,7 @@ var mbtiTvFriends = {
 						+ " self-pep-talk was a hilarious display of introverted"
 						+ " feeling."
 		},
-		pete: {
+		Pete: {
 			fullName: "Pete Becker",
 			mbti: "entj",
 			gender: "male",
@@ -1459,7 +1466,7 @@ var mbtiTvFriends = {
 						+ " Champion. Determined, personable and successful, Pete"
 						+ " was an ENTJ through and through."
 		},
-		phoebe: {
+		Phoebe: {
 			fullName: "Phoebe Buffay",
 			mbti: "enfp",
 			gender: "female",
@@ -1477,7 +1484,7 @@ var mbtiTvFriends = {
 						+ " She is a classic ENFP – if her song lyrics won’t"
 						+ " convince you, her outlandish actions will."
 		},
-		rachel: {
+		Rachel: {
 			fullName: "Rachel Green",
 			mbti: "esfp",
 			gender: "female",
@@ -1495,7 +1502,7 @@ var mbtiTvFriends = {
 						+ " responsible, driven and grounded. Rachel embodies an"
 						+ " excellent depiction of a mature ESFP."
 		},
-		ross: {
+		Ross: {
 			fullName: "Ross Geller",
 			mbti: "istj",
 			gender: "male",
@@ -1514,7 +1521,7 @@ var mbtiTvFriends = {
 						+ " their lives settled down and in order as quickly as"
 						+ " they possibly can."
 		},
-		tag: {
+		Tag: {
 			fullName: "Tag Jones",
 			mbti: "isfp",
 			gender: "male",
@@ -1602,7 +1609,7 @@ function unitTests() {
 }
 
 var mbtiModel = {
-	imgDir: "./app/public/assets/img",
+	imgDir: "./assets/img",
 	assessment: mbtiOnlineAssessments,
 	survey: mbtiSurvey,
 	attribution: mbtiAttribution,
@@ -1611,7 +1618,96 @@ var mbtiModel = {
 	descriptors: mbtiDescriptors,
 	profiles: mbtiProfiles,
 	tvFriends: mbtiTvFriends,
+	getResultsHtml: getResultsHtml,
 	unitTests: unitTests
 };
+
+// Function: getResultsHtml
+// Usage: var html = mbtiModel.getResultsHtml("entp");
+//        res.end(html);
+// ----------------------------------------------------
+// Analizes your MBTI personality type and builds a report
+// in HTML that reflects which character you're most like from the TV Show 
+// 'Friends' and with which character you would likely be good friends.
+//
+// TODO: Um, add pictures and styling and stuff.  I've got a ton of really
+//       cool data packed into the model about the characters and about 
+//       Meyers-Briggs in general that could be presented.
+
+function getResultsHtml(mbtiType) {
+	var html = "";
+	html += "<p><em>DISCLAIMER</em>: This isn't a normed analysis instrument so take"
+	html += " the results very lightly.</p>\n";
+	html += "<p>You seem closest in your MBTI personality assessment to an: " ;
+	html += "<em>" + mbtiType.toUpperCase() + "</em></p>\n"; 
+	var title = mbtiModel.descriptors.getDescriptor(mbtiType);
+	html += "<p>If you had a title of some sort, it might be: ";
+	html += "<em>" + title + "</em></p>\n"; 
+	html += "<p>With regard to the characters in the TV Show 'Friends', you're probably closest"
+	html += " in personality to:\n"
+	html += "<ul>\n";
+	let mostLike = mbtiModel.profiles.getInstances(mbtiType);
+	for (let i = 0; i < mostLike.length; i++) {
+		html += "<li>" + mostLike[i] + "\n";
+		let profile = mbtiModel.tvFriends.getRationale(mostLike[i]);
+		html += "<p>" + profile + "</p>\n";
+		let imgFile = "assets/img/" + mostLike[i].toLowerCase() + "-mbti.png";
+		html += "<img src='" + imgFile + "' alt='" + mostLike[i] + "'>";
+		html += "</li>\n";
+		html += "<br>\n";
+	}
+	html += "</ul></p>\n";
+	html += "<p>However, if you lived in that world, you might have the <em>most compatible friendship</em> with:\n";
+	html += "<ul>\n";
+	var mostCompatibleMbti = mbtiModel.bestMatches.getBestMatches(mbtiType);
+	for (let i = 0; i < mostCompatibleMbti.length; i++) {
+		let mostCompat = mbtiModel.profiles.getInstances(mostCompatibleMbti[i]);
+		for (let j = 0; j < mostCompat.length; j++) {
+			html += "<li>" + mostCompat[j] + "\n";
+			let profile = mbtiModel.tvFriends.getRationale(mostCompat[j]);
+			html += "<p>" + profile + "</p>\n";
+			let imgFile = "assets/img/" + mostCompat[j].toLowerCase() + "-mbti.png";
+			html += "<img src='" + imgFile + "' alt='" + mostCompat[j] + "'>";
+			html += "</li>\n";
+			html += "<br>\n";
+		}
+	}
+	html += "</ul></p>\n";
+	html += "<h2>Want to know more about yourself?</h2>\n";
+	var singleBecause = mbtiModel.profiles.getSingleBecause(mbtiType);
+	html += "<p>If you're still single, it's likely because: ";
+	html += singleBecause + "\n";
+	html += "<p>You'll be ready to settle down when: \n";
+	var readyWhen = mbtiModel.profiles.getReadyWhen(mbtiType);
+	html += readyWhen + "\n";
+	html += "<p>Your most attractive quality is: ";
+	var attractiveQuality = mbtiModel.profiles.getMostAttractiveQualityQuality(mbtiType);
+	html += attractiveQuality + "\n";
+	var attractiveDesc = mbtiModel.profiles.getMostAttractiveQualityDesc(mbtiType);
+	html += "<p>" + attractiveDesc + "</p>";
+	html += "<p>In bed: \n";
+	var inBed = mbtiModel.profiles.getInBed(mbtiType);
+	html += inBed + "</p>\n";
+	html += "<p>Your version of hell: \n";
+	var yourHell = mbtiModel.profiles.getYourHell(mbtiType);
+	html += yourHell + "</p>\n";
+	html += "<p>At a party: \n";
+	var atAParty = mbtiModel.profiles.getAtAParty(mbtiType);
+	html += atAParty + "</p>\n";
+	/*  Need to fix the perspective in the description before this will read well.
+	html += "<p>Someone you like will know it because: \n";
+	var showLikeBy = mbtiModel.profiles.getShowLikeBy(mbtiType);
+	html += showLikeBy + "</p>\n";
+	*/
+	var key = "heidi_priebe"
+	var fullName = mbtiAttribution.getFullName(key);
+	var link = mbtiAttribution.getLink(key);
+	let imgFile = mbtiAttribution.getPic(key);
+
+	html += "<p><em>*MBTI profiles courtesy of <a href='" + link + "'>" + fullName + "</a></em></p>\n";
+	html += "<a href='" + link + "'><img src='" + imgFile + "' alt='" + fullName + "' height='75em' width='75em'></a>\n";
+
+	return html;
+}
 
 module.exports = mbtiModel;
