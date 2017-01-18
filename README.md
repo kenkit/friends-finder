@@ -13,9 +13,18 @@ The goal is to create a (mostly) full stack application that leverages node.js a
 
 # Attribution
 
-## The MBTI assessment survey comes from:
+## MBTI assessment survey:
 
-John Hawksley (http://jupiter-34.appspot.com/)
+This is probably the weakest link.  I snagged some questions from John Hawksley's simplified assessment website (http://jupiter-34.appspot.com/) and added my own 
+rudimentary weightings to the responses.  A true Meyers-Briggs assessment involves many more questions and a trained assessment professional.
+
+## MBTI background videos:
+
+Michael Pierce (https://www.youtube.com/channel/UCmDcT_Pujk8vOcxk_IcnxtQ)
+
+## MBTI compatibility model:
+
+BSM Consulting (http://personalitypage.com/html/partners.html)
 
 ## MBTI profile analysis comes from:
 
