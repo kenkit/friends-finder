@@ -31,7 +31,6 @@ app.use(bodyParser.json())
 app.post("/survey", function(req, res) {
 	var name = req.body.name.toLowerCase();
 	responses[name] = req.body;
-	console.log(responses);
 	var mbtiType = mbtiModel.survey.scoreSurvey(req.body);
 	if (mbtiType) {
 		responses[name].mbti = mbtiType;
