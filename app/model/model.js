@@ -245,7 +245,7 @@ var mbtiSurvey = {
 			]
 		},
 		{
-			q: "You more interested in checking out",
+			q: "You're more interested in checking out",
 			a: [
 				["garage sales", "p:1"],
 				["shopping malls", "j:1"]
