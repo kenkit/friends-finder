@@ -23,7 +23,7 @@
 var mbtiAttribution = {
 	michael_pierce: {
 		fullName: "Michael Pierce",
-		link: "https://www.youtube.com/watch?v=5uKaFveOhXY",
+		link: "https://www.youtube.com/channel/UCmDcT_Pujk8vOcxk_IcnxtQ",
 		pic: undefined
 	},
 	heidi_priebe: {
@@ -32,7 +32,7 @@ var mbtiAttribution = {
 		pic: "heidi_priebe.png"
 	},
 	brenda_ellis: {
-		fullName: "Brenda Ellis",
+		fullName: "BSM Consulting",
 		link: "http://personalitypage.com/html/partners.html",
 		pic: undefined
 	},
@@ -265,7 +265,10 @@ var mbtiSurvey = {
 function buildSurveyHtml(actionRoute, method) {
 	var qArray = this.questions;
 	var html ="";
-	html += "<html><body>\n";
+	var html = "<!DOCTYPE html>\n";
+	html += "<html>\n";
+	html += getHeadHtml();
+	html += "<body>\n";
 	html += "<form action='" + actionRoute + "'";
 	html += "method='" + method + "'>\n";
 	html += "<label>Name:&nbsp;<input type='text' name='name' ";
@@ -1635,14 +1638,22 @@ var mbtiModel = {
 //       Meyers-Briggs in general that could be presented.
 
 function getResultsHtml(mbtiType) {
-	var html = "";
+	var html = "<!DOCTYPE html>\n";
+	html += "<html>\n";
+	html += getHeadHtml();
+	html += "<body>\n";
 	html += "<p><em>DISCLAIMER</em>: This isn't a normed analysis instrument so take"
 	html += " the results very lightly.</p>\n";
-	html += "<p>You seem closest in your MBTI personality assessment to an: " ;
+	html += "<h2>Personality Assessment</h2>\n";
+	html += "<p>You seem closest in your Meyers-Briggs personality assessment to an: " ;
 	html += "<em>" + mbtiType.toUpperCase() + "</em></p>\n"; 
 	var title = mbtiModel.descriptors.getDescriptor(mbtiType);
 	html += "<p>If you had a title of some sort, it might be: ";
 	html += "<em>" + title + "</em></p>\n"; 
+	html += "<p>Your most attractive quality is: <em>";
+	var attractiveQuality = mbtiModel.profiles.getMostAttractiveQualityQuality(mbtiType);
+	html += attractiveQuality + "</em>\n";
+	html += "<h2>Most Similar To</h2>\n";
 	html += "<p>With regard to the characters in the TV Show 'Friends', you're probably closest"
 	html += " in personality to:\n"
 	html += "<ul>\n";
@@ -1657,7 +1668,8 @@ function getResultsHtml(mbtiType) {
 		html += "<br>\n";
 	}
 	html += "</ul></p>\n";
-	html += "<p>However, if you lived in that world, you might have the <em>most compatible friendship</em> with:\n";
+	html += "<h2>Most Compatible With</h2>\n";
+	html += "<p>If you lived in that TV world, you might have the <em>most compatible friendship</em> with:\n";
 	html += "<ul>\n";
 	var mostCompatibleMbti = mbtiModel.bestMatches.getBestMatches(mbtiType);
 	for (let i = 0; i < mostCompatibleMbti.length; i++) {
@@ -1673,18 +1685,18 @@ function getResultsHtml(mbtiType) {
 		}
 	}
 	html += "</ul></p>\n";
-	html += "<h2>Want to know more about yourself?</h2>\n";
+	var overviewLink = mbtiModel.videos.getOverviewVideo();
+	var mbtiLink = mbtiModel.videos.getVideo(mbtiType);
+	html += "<h2>Want to know more about <a href='" + mbtiLink + "' target='_blank'>" + mbtiType.toUpperCase() + "'s</a> and\n";
+	html += "<a href='" + overviewLink + "' target='_blank'>Jungian Typology</a>?</h2>\n";
+	var attractiveDesc = mbtiModel.profiles.getMostAttractiveQualityDesc(mbtiType);
+	html += "<p>" + attractiveDesc + "</p>";
 	var singleBecause = mbtiModel.profiles.getSingleBecause(mbtiType);
 	html += "<p>If you're still single, it's likely because: ";
 	html += singleBecause + "\n";
 	html += "<p>You'll be ready to settle down when: \n";
 	var readyWhen = mbtiModel.profiles.getReadyWhen(mbtiType);
 	html += readyWhen + "\n";
-	html += "<p>Your most attractive quality is: ";
-	var attractiveQuality = mbtiModel.profiles.getMostAttractiveQualityQuality(mbtiType);
-	html += attractiveQuality + "\n";
-	var attractiveDesc = mbtiModel.profiles.getMostAttractiveQualityDesc(mbtiType);
-	html += "<p>" + attractiveDesc + "</p>";
 	html += "<p>In bed: \n";
 	var inBed = mbtiModel.profiles.getInBed(mbtiType);
 	html += inBed + "</p>\n";
@@ -1694,19 +1706,55 @@ function getResultsHtml(mbtiType) {
 	html += "<p>At a party: \n";
 	var atAParty = mbtiModel.profiles.getAtAParty(mbtiType);
 	html += atAParty + "</p>\n";
+	var kindOfGF = mbtiModel.profiles.getKindOfGirlfriend(mbtiType);
+	html += "<p>As a girlfriend: \n";
+	html += kindOfGF + " [ According to Heide* (-; ]</p>\n";
+
 	/*  Need to fix the perspective in the description before this will read well.
 	html += "<p>Someone you like will know it because: \n";
 	var showLikeBy = mbtiModel.profiles.getShowLikeBy(mbtiType);
 	html += showLikeBy + "</p>\n";
 	*/
-	var key = "heidi_priebe"
-	var fullName = mbtiAttribution.getFullName(key);
-	var link = mbtiAttribution.getLink(key);
+
+	html += "<hr>\n";
+	let key = "michael_pierce";
+	let fullName = mbtiAttribution.getFullName(key);
+	let link = mbtiAttribution.getLink(key);
+	html += "<p><em>*MBTI background videos courtesy of <a href='" + link + "'>" + fullName + "</a></em><br>\n";
+
+	key = "brenda_ellis";
+	fullName = mbtiAttribution.getFullName(key);
+	link = mbtiAttribution.getLink(key);
+	html += "<em>*MBTI compatibility model courtesy of <a href='" + link + "'>" + fullName + "</a></em><br>\n";
+
+	key = "heidi_priebe";
+	fullName = mbtiAttribution.getFullName(key);
+	link = mbtiAttribution.getLink(key);
 	let imgFile = mbtiAttribution.getPic(key);
-
-	html += "<p><em>*MBTI profiles courtesy of <a href='" + link + "'>" + fullName + "</a></em></p>\n";
+	html += "<em>*MBTI profiles courtesy of <a href='" + link + "'>" + fullName + "</a></em></p>\n";
 	html += "<a href='" + link + "'><img src='" + imgFile + "' alt='" + fullName + "' height='75em' width='75em'></a>\n";
+	html += "</body>\n";
+	html += "</html>\n";
+	return html;
+}
 
+// Function: getHeadHtml
+// Usage: var headHtml = mbtiModel.getHeadHtml();
+// ----------------------------------------------------
+// Returns boilerplate <head>..</head> html for pages related to this app.
+
+function getHeadHtml() {
+	var html = "";
+	html += "<head>\n";
+	html += "\t<meta charset='utf-8'>\n";
+	html += "\t<title>Friends Finder</title>\n";
+	html += "\t<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>\n";
+	html += "\t<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>\n";
+	html += "\t<link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' media='screen'>\n";
+	html += "\t<link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>\n";
+	html += "\t<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>\n";
+	html += "\t<link href='assets/css/view.css' rel='stylesheet' type='text/css'>\n";
+	html += "</head>\n";
 	return html;
 }
 
