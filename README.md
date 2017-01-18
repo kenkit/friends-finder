@@ -15,8 +15,8 @@ The goal is to create a (mostly) full stack application that leverages node.js a
 
 ## The MBTI assessment survey comes from:
 
-![John Hawksley]("http://jupiter-34.appspot.com/")
+John Hawksley (http://jupiter-34.appspot.com/)
 
 ## MBTI profile analysis comes from:
 
-![Heidi Priebe]("http://tcat.tc/1PgB8Af")
+Heidi Priebe (http://tcat.tc/1PgB8Af)
