@@ -149,7 +149,7 @@ var mbtiSurvey = {
 			q: "You work better",
 			a: [
 				["with a deadline", "j:1"],
-				["in you own time", "p:1"]
+				["in your own time", "p:1"]
 			]
 		},
 		{
@@ -1650,6 +1650,37 @@ function getUnitTestSurvey(mbtiType) {
 			};
 			break;
 
+		case "entj":
+			surveyObj = {
+				name: "ENTJ User",
+				q0: "with effort",
+				q1: "abstract concepts",
+				q2: "the facts",
+				q3: "work first, then play",
+				q4: "imaginative",
+				q5: "open",
+				q6: "unconventional",
+				q7: "figuratively",
+				q8: "careful plans",
+				q9: "harmony",
+				q10: "in your own time",
+				q11: "decorating",
+				q12: "connect to his emotions",
+				q13: "sensitive",
+				q14: "stuck in your ways",
+				q15: "see the good in everyone",
+				q16: "the future",
+				q17: "ratings and reviews",
+				q18: "yes",
+				q19: "interact with others",
+				q20: "long term goals",
+				q21: "remembering the events of the day",
+				q22: "logic",
+				q23: "yes",
+				q24: "garage sales"
+			};
+			break;
+
 	}
 	return surveyObj;
 }
@@ -1725,6 +1756,16 @@ function unitTests() {
 		console.log(mbtiWeights);
 		console.log(actualMbtiStr);
 		result = ("enfp" == actualMbtiStr);
+	}
+	if (result) {
+		let expectedMbtiStr = "entj";
+		var survey = getUnitTestSurvey(expectedMbtiStr);
+		var mbtiWeights = this.survey.computeMbtiWeights(survey);
+		var actualMbtiStr = this.survey.scoreSurvey(survey);
+
+		console.log(mbtiWeights);
+		console.log(actualMbtiStr);
+		result = ("entj" == actualMbtiStr);
 	}
 	return result;
 }
