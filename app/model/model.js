@@ -1894,4 +1894,4 @@ var mbtiModel = {
 	unitTests: unitTests
 };
 
-//module.exports = mbtiModel;
+module.exports = mbtiModel;
