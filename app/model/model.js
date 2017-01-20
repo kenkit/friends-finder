@@ -46,6 +46,11 @@ var mbtiAttribution = {
 		link: "http://jupiter-34.appspot.com/",
 		pic: undefined
 	},
+	dean_burnett: {
+		fullName: "Dean Burnett", 
+		link: "https://www.theguardian.com/science/brain-flapping/2013/mar/19/myers-briggs-test-unscientific",
+		pic: undefined
+	},
 	getFullName: function(key) { return this[key].fullName },
 	getLink: function(key) { return this[key].link },
 	getPic: function(key) { return (this[key].pic) ? 
@@ -1789,8 +1794,11 @@ function getResultsHtml(mbtiType) {
 	html += "<body>\n";
 	html += getHeaderHtml("Results");
 	html += "<div><br>\n";
-	html += "<p><em>DISCLAIMER</em>: This isn't a normed analysis instrument so <em>take"
-	html += " the results very lightly</em>.  The Meyers-Briggs assessment is likely to be inaccurate.</p>\n";
+	let key = "dean_burnett";
+	let link = mbtiAttribution.getLink(key);
+	html += "<p><em>DISCLAIMER</em>: This isn't a normed measure so <em>take"
+	html += " the results lightly</em>.  Also, Meyers-Briggs has its share of "
+	html += "<a href='" + link + "'><em>critics and known limitations</em></a>.</p>\n";
 	html += "<h2>Personality Assessment</h2>\n";
 	html += "<p>You seem closest in your Meyers-Briggs personality assessment to an: " ;
 	html += "<em>" + mbtiType.toUpperCase() + "</em></p>\n"; 
@@ -1864,9 +1872,9 @@ function getResultsHtml(mbtiType) {
 	*/
 
 	html += "<hr>\n";
-	let key = "michael_pierce";
+	key = "michael_pierce";
 	let fullName = mbtiAttribution.getFullName(key);
-	let link = mbtiAttribution.getLink(key);
+	link = mbtiAttribution.getLink(key);
 	html += "<p><em>*MBTI background videos courtesy of <a href='" + link + "'>" + fullName + "</a></em><br>\n";
 
 	key = "brenda_ellis";
