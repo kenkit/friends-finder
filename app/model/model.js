@@ -92,7 +92,7 @@ var mbtiSurvey = {
 		{
 			q: "It's frustrating when people don't consider",
 			a: [
-				["others' feelings", "f:2"],
+				["the feelings of others", "f:2"],
 				["the facts", "t:2"]
 			]
 		},
@@ -134,8 +134,8 @@ var mbtiSurvey = {
 		{
 			q: "You would rather rely upon",
 			a: [
-				["careful plans", "j:2"],
-				["improvisation", "p:2"]
+				["careful plans", "j:3"],
+				["improvisation", "p:3"]
 			]
 		},
 		{
@@ -176,8 +176,8 @@ var mbtiSurvey = {
 		{
 			q: "It is worse to be",
 			a: [
-				["scatterbrained", "j:1"],
-				["stuck in your ways", "p:1"]
+				["scatterbrained", "j:1.1"],
+				["stuck in your ways", "p:1.1"]
 			]
 		},
 		{
@@ -197,7 +197,7 @@ var mbtiSurvey = {
 		{
 			q: "Picking a restuarant, you care more about",
 			a: [
-				["friends' opinions", "f:1"],
+				["the opinions of friends", "f:1"],
 				["ratings and reviews", "t:1"]
 			]
 		},
@@ -205,8 +205,8 @@ var mbtiSurvey = {
 			q: "You place a high value on membership in"
 			   + " clubs and organizations",
 			a: [
-				["yes", "e:1,f:0.5"],
-				["no", "i:1,t:0.5"]
+				["yes", "e:1,f:0.2"],
+				["no", "i:1,t:0.2"]
 			]
 		},
 		{
@@ -253,6 +253,7 @@ var mbtiSurvey = {
 		}
 	],
 	buildSurveyHtml: buildSurveyHtml,
+	computeMbtiWeights: computeMbtiWeights,
 	scoreSurvey: scoreSurvey
 };
 
@@ -324,40 +325,65 @@ function makeRadioButton(rbName, rbValue) {
 function scoreSurvey(survey) {
 	var results = {};
 	var mbtiType = "";
-	if (survey) {
-		for (q in survey) {
-			if (q == "name") continue;
-			var surveyAnsStr = survey[q];
-			var qIndex = parseInt(q.slice(1));
-			var surveyArray = this.questions;
-			// questions = [
-			//	{q:"Social interaction comes to you",
-			//   a: [['naturally','e:2'],['with effort', 'i:2']]},
-			//  {..},
-			// ]
-			var ansArray = this.questions[qIndex].a;
-			for (var i = 0; i < ansArray.length; i++) {
-				if (surveyAnsStr == ansArray[i][0]) {
-					var mbtiWeight = ansArray[i][1].split(',');
-					for (var j = 0; j < mbtiWeight.length; j++) {
-						var letter = mbtiWeight[j].split(":")[0];
-						var weight = parseFloat(mbtiWeight[j].split(":")[1]);
-						if (results[letter]) {
-							results[letter] += weight;
-						} else {
-							results[letter] = weight
-						}
+	if (!survey) return mbtiType;
+
+	var mbtiWeights = this.computeMbtiWeights(survey);
+	mbtiType += (mbtiWeights.e >= mbtiWeights.i) ? 'e' : 'i';
+	mbtiType += (mbtiWeights.s >= mbtiWeights.n) ? 's' : 'n';
+	mbtiType += (mbtiWeights.f >= mbtiWeights.t) ? 'f' : 't';
+	mbtiType += (mbtiWeights.p >= mbtiWeights.j) ? 'p' : 'j';
+	return mbtiType;		
+}
+
+// Function: computeMbtiWeights
+// Usage: var mbtiWeights = mbtiModel.survey.scoreSurvey(surveyJson);
+// ------------------------------------------------------------------
+// Returns a computed mbti object with values for each MBTI component.
+//
+// e.g., mbtiWeights = { e:2, i:5, s:5, n:1, t:6.7, f:1, j:6, p:5.1};
+
+function computeMbtiWeights(survey) {
+	var results = {
+		e: 0.0,
+		i: 0.0,
+		s: 0.0,
+		n: 0.0,
+		t: 0.0,
+		f: 0.0,
+		p: 0.0,
+		j: 0.0
+	};
+	if (!survey) return results;
+
+	for (q in survey) {
+		if (q == "name") continue;
+		var surveyAnsStr = survey[q];
+		var qIndex = parseInt(q.slice(1));
+		var surveyArray = this.questions;
+		// questions = [
+		//	{q:"Social interaction comes to you",
+		//   a: [['naturally','e:2'],['with effort', 'i:2']]},
+		//  {..},
+		// ]
+		var ansArray = this.questions[qIndex].a;
+		for (var i = 0; i < ansArray.length; i++) {
+			if (surveyAnsStr == ansArray[i][0]) {
+				var mbtiWeight = ansArray[i][1].split(',');
+				for (var j = 0; j < mbtiWeight.length; j++) {
+					var letter = mbtiWeight[j].split(":")[0];
+					var weight = parseFloat(mbtiWeight[j].split(":")[1]);
+					if (results[letter]) {
+						results[letter] += weight;
+					} else {
+						results[letter] = weight
 					}
 				}
 			}
 		}
-		mbtiType += (results.e >= results.i) ? 'e' : 'i';
-		mbtiType += (results.s >= results.n) ? 's' : 'n';
-		mbtiType += (results.f >= results.t) ? 'f' : 't';
-		mbtiType += (results.p >= results.j) ? 'p' : 'j';
-	}
-	return mbtiType;		
+	}	
+	return results;
 }
+
 
 // Offer video resources for learning more about MBTI to the curious.
 
@@ -1243,7 +1269,6 @@ var mbtiProfiles = {
 						{ return this.types[mbtiType].atAParty }
 };
 
-
 // Add supporting detail for Friends castmembers to spice up the presentation layer.
 
 var mbtiTvFriends = {
@@ -1559,6 +1584,76 @@ var mbtiTvFriends = {
 	getRationale: function(firstName) { return this.friends[firstName].rationale }
 };
 
+function getUnitTestSurvey(mbtiType) {
+	var surveyObj = {};
+
+	switch(mbtiType) {
+		case "istj":
+			surveyObj = {
+				name: "ISTJ User",
+				q0: "naturally",
+				q1: "facts and procedures",
+				q2: "the feelings of others",
+				q3: "work first, then play",
+				q4: "realistic",
+				q5: "private",
+				q6: "unconventional",
+				q7: "literally",
+				q8: "careful plans",
+				q9: "harmony",
+				q10: "with a deadline",
+				q11: "decorating",
+				q12: "probe how he thinks",
+				q13: "impartial",
+				q14: "stuck in your ways",
+				q15: "be wary of new situations",
+				q16: "the present",
+				q17: "the opinions of friends",
+				q18: "no",
+				q19: "work alone",
+				q20: "short term goals",
+				q21: "remembering the events of the day",
+				q22: "logic",
+				q23: "no",
+				q24: "garage sales"
+			};
+			break;
+
+		case "enfp":
+			surveyObj = {
+				name: "ENFP User",
+				q0: "with effort",
+				q1: "abstract concepts",
+				q2: "the facts",
+				q3: "work first, then play",
+				q4: "imaginative",
+				q5: "open",
+				q6: "unconventional",
+				q7: "figuratively",
+				q8: "improvisation",
+				q9: "harmony",
+				q10: "with a deadline",
+				q11: "tidying up",
+				q12: "connect to his emotions",
+				q13: "sensitive",
+				q14: "stuck in your ways",
+				q15: "see the good in everyone",
+				q16: "the future",
+				q17: "the opinions of friends",
+				q18: "no",
+				q19: "interact with others",
+				q20: "long term goals",
+				q21: "struck with brand new ideas",
+				q22: "feeling",
+				q23: "yes",
+				q24: "shopping malls"
+			};
+			break;
+
+	}
+	return surveyObj;
+}
+
 // Function: unitTests
 // Usage: if (mbtiModel.unitTests()) console.log("passed");
 // --------------------------------------------------------
@@ -1571,16 +1666,16 @@ function unitTests() {
 	var pic = this.attribution.getPic("heidi_priebe");
 	result = (pic === mbtiModel.imgDir + "/" + "heidi_priebe.png");
 	if (result) {
-		pic = this.tvFriends.getMbtiPic("ross");
+		pic = this.tvFriends.getMbtiPic("Ross");
 		result = (pic === mbtiModel.imgDir + "/" + "ross-mbti.png");
 	}
 	if (result) {
-		var profile = this.tvFriends.getProfile("ross");
+		var profile = this.tvFriends.getProfile("Ross");
 		console.log(profile);
 		result = (profile.fullName === "Ross Geller");
 	}
 	if (result) {
-		var rationale = this.tvFriends.getRationale("ross");
+		var rationale = this.tvFriends.getRationale("Ross");
 		console.log(rationale);
 		result = (rationale) ? true : false;
 	}
@@ -1597,8 +1692,8 @@ function unitTests() {
 		result = (bestMatches.join('') === infjExpectedMatches.join(''));
 	}
 	if (result) {
-		var expectedMaleResults = ["joey"];
-		var expectedFemaleResults = ["rachel"];
+		var expectedMaleResults = ["Joey"];
+		var expectedFemaleResults = ["Rachel"];
 		var mResults = this.profiles.getGenderInstances("esfp", "male");
 		console.log(mResults);
 		var fResults = this.profiles.getGenderInstances("esfp", "female");
@@ -1611,22 +1706,28 @@ function unitTests() {
 		console.log(surveyHtml);
 		result = (surveyHtml) ? true : false;
 	}
+	if (result) {
+		let expectedMbtiStr = "istj";
+		var survey = getUnitTestSurvey(expectedMbtiStr);
+		var mbtiWeights = this.survey.computeMbtiWeights(survey);
+		var actualMbtiStr = this.survey.scoreSurvey(survey);
+
+		console.log(mbtiWeights);
+		console.log(actualMbtiStr);
+		result = ("istj" == actualMbtiStr);
+	}
+	if (result) {
+		let expectedMbtiStr = "enfp";
+		var survey = getUnitTestSurvey(expectedMbtiStr);
+		var mbtiWeights = this.survey.computeMbtiWeights(survey);
+		var actualMbtiStr = this.survey.scoreSurvey(survey);
+
+		console.log(mbtiWeights);
+		console.log(actualMbtiStr);
+		result = ("enfp" == actualMbtiStr);
+	}
 	return result;
 }
-
-var mbtiModel = {
-	imgDir: "./assets/img",
-	assessment: mbtiOnlineAssessments,
-	survey: mbtiSurvey,
-	attribution: mbtiAttribution,
-	videos: mbtiVideos,
-	bestMatches: mbtiBestMatches,
-	descriptors: mbtiDescriptors,
-	profiles: mbtiProfiles,
-	tvFriends: mbtiTvFriends,
-	getResultsHtml: getResultsHtml,
-	unitTests: unitTests
-};
 
 // Function: getResultsHtml
 // Usage: var html = mbtiModel.getResultsHtml("entp");
@@ -1779,4 +1880,18 @@ function getHeaderHtml(customStr) {
 	return html;
 }
 
-module.exports = mbtiModel;
+var mbtiModel = {
+	imgDir: "./assets/img",
+	assessment: mbtiOnlineAssessments,
+	survey: mbtiSurvey,
+	attribution: mbtiAttribution,
+	videos: mbtiVideos,
+	bestMatches: mbtiBestMatches,
+	descriptors: mbtiDescriptors,
+	profiles: mbtiProfiles,
+	tvFriends: mbtiTvFriends,
+	getResultsHtml: getResultsHtml,
+	unitTests: unitTests
+};
+
+//module.exports = mbtiModel;
