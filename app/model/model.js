@@ -1798,7 +1798,7 @@ function getResultsHtml(mbtiType) {
 	let link = mbtiAttribution.getLink(key);
 	html += "<p><em>DISCLAIMER</em>: This isn't a normed measure so <em>take"
 	html += " the results lightly</em>.  Also, Meyers-Briggs has its share of "
-	html += "<a href='" + link + "'><em>critics and known limitations</em></a>.</p>\n";
+	html += "<a href='" + link + "' target='_blank'><em>critics and known limitations</em></a>.</p>\n";
 	html += "<h2>Personality Assessment</h2>\n";
 	html += "<p>You seem closest in your Meyers-Briggs personality assessment to an: " ;
 	html += "<em>" + mbtiType.toUpperCase() + "</em></p>\n"; 
