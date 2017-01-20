@@ -21,20 +21,20 @@
 // MBTI-based compatibility model.
 
 var mbtiAttribution = {
-	michael_pierce: {
-		fullName: "Michael Pierce",
-		link: "https://www.youtube.com/channel/UCmDcT_Pujk8vOcxk_IcnxtQ",
+	brenda_ellis: {
+		fullName: "BSM Consulting",
+		link: "http://personalitypage.com/html/partners.html",
+		pic: undefined
+	},
+	dean_burnett: {
+		fullName: "Dean Burnett", 
+		link: "https://www.theguardian.com/science/brain-flapping/2013/mar/19/myers-briggs-test-unscientific",
 		pic: undefined
 	},
 	heidi_priebe: {
 		fullName: "Heide Priebe",
 		link: "http://tcat.tc/1PgB8Af",
 		pic: "heidi_priebe.png"
-	},
-	brenda_ellis: {
-		fullName: "BSM Consulting",
-		link: "http://personalitypage.com/html/partners.html",
-		pic: undefined
 	},
 	jack_falt: {
 		fullName: "Jack Falt",
@@ -46,9 +46,14 @@ var mbtiAttribution = {
 		link: "http://jupiter-34.appspot.com/",
 		pic: undefined
 	},
-	dean_burnett: {
-		fullName: "Dean Burnett", 
-		link: "https://www.theguardian.com/science/brain-flapping/2013/mar/19/myers-briggs-test-unscientific",
+	john_gottman: {
+		fullName: "Dr. John Gottman", 
+		link: "https://www.gottman.com/",
+		pic: undefined
+	},
+	michael_pierce: {
+		fullName: "Michael Pierce",
+		link: "https://www.youtube.com/channel/UCmDcT_Pujk8vOcxk_IcnxtQ",
 		pic: undefined
 	},
 	getFullName: function(key) { return this[key].fullName },
@@ -1798,7 +1803,11 @@ function getResultsHtml(mbtiType) {
 	let link = mbtiAttribution.getLink(key);
 	html += "<p><em>DISCLAIMER</em>: This isn't a normed measure so <em>take"
 	html += " the results lightly</em>.  Also, Meyers-Briggs has its share of "
-	html += "<a href='" + link + "' target='_blank'><em>critics and known limitations</em></a>.</p>\n";
+	html += "<a href='" + link + "' target='_blank'><em>critics and known limitations</em></a>. \n";
+	html += "For a more evidence-based approach to healthy relationships, checkout the pioneering work of \n";
+	key = "john_gottman";
+	link = mbtiAttribution.getLink(key);
+	html += "<a href='" + link + "' target='_blank'><em>Drs. John and Julie Gottman</em></a>.</p>\n";
 	html += "<h2>Personality Assessment</h2>\n";
 	html += "<p>You seem closest in your Meyers-Briggs personality assessment to an: " ;
 	html += "<em>" + mbtiType.toUpperCase() + "</em></p>\n"; 
