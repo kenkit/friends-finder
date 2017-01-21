@@ -1919,6 +1919,10 @@ function getHeadHtml() {
 	html += "\t<link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>\n";
 	html += "\t<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>\n";
 	html += "\t<link href='assets/css/view.css' rel='stylesheet' type='text/css'>\n";
+	html += "\t<style type='text/css'>\n";
+	html += "\tbody { margin: 40px auto; max-width: 970px; line-height: 1.6; font-size: 18px; color: #444; padding: 0 10px }\n";
+	html += "\th1,h2,h3 { line-height: 1.2 }\n";
+	html += "\t</style>\n";
 	html += "</head>\n";
 	return html;
 }
