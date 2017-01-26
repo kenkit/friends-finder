@@ -1424,7 +1424,7 @@ var mbtiTvFriends = {
 			mbti: "enfj",
 			gender: "female",
 			orientation: "s",
-			mbtiPic: "kathy-mbti.jpg",
+			mbtiPic: "kathy-mbti.png",
 			closeupPic: "placeholder200x200.png",
 			personalityPic: undefined,
 			rationale: "Expressive, intuitive and nurturing, Kathy displayed every"
