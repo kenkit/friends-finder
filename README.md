@@ -44,6 +44,8 @@ My responsive CSS fu is still very rudimentary.  I was curious to see what I cou
 
 I'm happy with the model, though I should probably split out the HTML generating functions into templatized files.  I think I'll play with Handlebars next with an eye toward this.  Also, it might be fun to play with the Cheerio screen scraper so more of the model could be built-up in real-time from online content and only relying upon the static model which I manually and laboriously crafted as a fallback.  Still, the source content is relatively static, so the case for this is less compelling beyond the intellectual exercise.
 
+Oh, yeah.  What I /should/ do is start playing with Flexbox.  I think it would give me some needed control over the vertical geometries that otherwise prevent my footer from sticking to the bottom of the window.  It's a recommended standard at this point and clearly worthy of investment.
+
 # Attribution
 
 This application would not be possible without some interesting and compelling work by others who took the time to elaborate and popularize their interest in Meyers-Briggs.
