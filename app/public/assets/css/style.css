@@ -56,7 +56,7 @@ body {
 	overflow: auto;
 	text-align: center;
 	background-color: #D0C7C2;
-	background-image: url("landscape.jpg");
+	background-image: url("../img/landscape.jpg");
 	background-repeat: no-repeat;
 	background-size: auto 100%;
 	background-position: center top;
@@ -114,7 +114,7 @@ body {
 @media screen and (orientation: portrait) {
 	.content {
 		height: 1230px;
-		background-image: url("portrait.jpg");
+		background-image: url("../img/portrait.jpg");
 		background-size: auto 100%;
 		background-color: black;
 	}
