@@ -47,6 +47,10 @@ body {
 .header a:visited {
 	color: white;
 	text-decoration: none;
+}
+
+.header--nav a:link,
+.header--nav a:visited {
 	text-shadow:
 		2px 2px 7px #111111;
 }
