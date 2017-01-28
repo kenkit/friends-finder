@@ -1483,7 +1483,7 @@ var mbtiTvFriends = {
 			personalityPic: undefined,
 			rationale: "Okay, we may be reaching a bit here – Friends was severely"
 						+ " lacking in INFP characters. The closest approximation"
-						+ " we had was Bruce Willis’ fantastic portrayal of Paul,"
+						+ " we had was Bruce Willis’s fantastic portrayal of Paul,"
 						+ " the no-nonsense father of Ross’s young flame"
 						+ " Elizabeth. As the series unfolded, we saw a much"
 						+ " softer side to Paul – one that revealed a rich inner"
