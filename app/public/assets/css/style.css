@@ -161,6 +161,11 @@ body {
 	margin-right: 0em;
 }
 
+.results--img {
+	box-shadow: 0 0 0.8em #000000;
+	margin-top: 1em;
+}
+
 /* Portrait orientation -- especially mobile. */
 
 @media screen and (orientation: portrait) {

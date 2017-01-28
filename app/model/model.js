@@ -1827,7 +1827,7 @@ function getResultsHtml(mbtiType) {
 	for (let i = 0; i < mostLike.length; i++) {
 		html += "<li>" + mostLike[i] + "</br>\n";
 		let imgFile = "assets/img/" + mostLike[i].toLowerCase() + "-mbti.png";
-		html += "<img src='" + imgFile + "' alt='" + mostLike[i] + "'>";
+		html += "<img class='results--img' src='" + imgFile + "' alt='" + mostLike[i] + "'>";
 		let profile = mbtiModel.tvFriends.getRationale(mostLike[i]);
 		html += "<p>" + profile + "</p>\n";
 		html += "</li>\n";
@@ -1843,7 +1843,7 @@ function getResultsHtml(mbtiType) {
 		for (let j = 0; j < mostCompat.length; j++) {
 			html += "<li>" + mostCompat[j] + "</br>\n";
 			let imgFile = "assets/img/" + mostCompat[j].toLowerCase() + "-mbti.png";
-			html += "<img src='" + imgFile + "' alt='" + mostCompat[j] + "'>";
+			html += "<img class='results--img' src='" + imgFile + "' alt='" + mostCompat[j] + "'>";
 			let profile = mbtiModel.tvFriends.getRationale(mostCompat[j]);
 			html += "<p>" + profile + "</p>\n";
 			html += "</li>\n";
