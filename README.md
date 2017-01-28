@@ -1,12 +1,22 @@
-# Adept Friends Finder
+# Friends Finder
 
-This week, I'm spoofing a well known social media site.
+This week, I'm mashing up a simplified Meyers-Briggs personality assessment with an MBTI model of the characters from the TV show, Friends.  Users complete a survey to see which character from the show they are most like and with whom they would be most compatible.  It's bogus, but fun.
 
 The goal is to create a (mostly) full stack application that leverages node.js and an express web server to maintain an in-memory database of people and their responses to a Meyers-Briggs personality assessment.  Users respond to the questions to determine their closest match based upon an MBTI compatibility metric.
 
-![alt tag](app/public/assets/img/aff.png)
+Some care has been taken to make the interface responsive (mostly).
 
-# Sample Output
+## Landing page:
+
+![alt tag](app/public/assets/img/tablet-landscape.png)
+
+![alt tag](app/public/assets/img/mobile-portrait.png)
+
+## User's complete a survey:
+
+![alt tag](app/public/assets/img/survey.png)
+
+## A typical report looks like this:
 
 ![alt tag](app/public/assets/img/sampleReport.png)
 
