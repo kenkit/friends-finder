@@ -27,6 +27,8 @@ body {
 	font-weight: bold;
 	font-size: 2.5em;
 	font-style: italic;
+	text-shadow:
+		2px 2px 7px #111111;
 }
 
 .header--nav {
@@ -66,6 +68,15 @@ body {
 	background-position: center top;
 }
 
+.survey--content {
+	font-family: Ariel, Verdana, sans-serif;
+	text-align: left;
+	background-color: steelblue;
+	padding: 1em;
+	font-size: 1.5em;
+	overflow: scroll;
+}
+
 .splash-text {
 	padding: 0.5em;
 	color: black;
@@ -76,11 +87,11 @@ body {
 }
 
 .footer {
-	/*clear: both;*/
 	background-color: rgba(208, 199, 194, 0.5);
 	overflow: auto;
 	width: 100%;
 	height: 5em;
+	font-family: Ariel, Verdana, sans-serif;
 }
 
 .footer--nav {
@@ -127,5 +138,4 @@ body {
 		color: white;
 		background-color: rgba(0, 0, 0, 0.3);
 	}
-
 }

@@ -281,7 +281,7 @@ function buildSurveyHtml(actionRoute, method) {
 	html += getHeadHtml();
 	html += "<body>\n";
 	html += getHeaderHtml("Survey");
-	html += "<div><br>\n";
+	html += "<div class='survey--content'><br>\n";
 	html += "<form action='" + actionRoute + "'";
 	html += "method='" + method + "'>\n";
 	html += "<label>Name:&nbsp;<input type='text' name='name' ";
@@ -306,10 +306,12 @@ function buildSurveyHtml(actionRoute, method) {
 	}
 	html += "\t</ol>\n";
 	html += "</fieldset>\n";
-	html += "<br>\n";
+	html += "<br />\n";
 	html += "<input type='submit' value='Submit'>\n";
+	html += "<br />\n";
 	html += "</form>\n";
 	html += "</div>\n";
+	html += getFooterHtml();
 	html += "</body></html>\n";
 	return html;
 }
@@ -1913,16 +1915,8 @@ function getHeadHtml() {
 	html += "<head>\n";
 	html += "\t<meta charset='utf-8'>\n";
 	html += "\t<title>Friends Finder</title>\n";
-	html += "\t<script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>\n";
-	html += "\t<script src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'></script>\n";
-	html += "\t<link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' media='screen'>\n";
-	html += "\t<link href='https://fonts.googleapis.com/css?family=Anton' rel='stylesheet'>\n";
-	html += "\t<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>\n";
-	html += "\t<link href='assets/css/view.css' rel='stylesheet' type='text/css'>\n";
-	html += "\t<style type='text/css'>\n";
-	html += "\tbody { margin: 40px auto; max-width: 650px; line-height: 1.6; font-size: 18px; padding: 0 10px }\n";
-	html += "\th1,h2,h3 { line-height: 1.2 }\n";
-	html += "\t</style>\n";
+	html +=	"\t<link href='./assets/css/style.css' rel='stylesheet' type='text/css'>\n";
+	html += "\t<link href='https://fonts.googleapis.com/css?family=Covered+By+Your+Grace' rel='stylesheet'>\n";
 	html += "</head>\n";
 	return html;
 }
@@ -1934,11 +1928,28 @@ function getHeadHtml() {
 
 function getHeaderHtml(customStr) {
 	var html = "";
-	html += "<div>\n";
-	html += "<h1 class='well jumbotron-titletext'>\n";
-	html += "<span class='red-text'>Adept</span>FriendsFinder &#174;&nbsp;" + customStr + "\n";
-	html += "</h1>\n";
-	html += "</div>\n";
+	html += "<header class='header'>\n";
+	html += "<a href='index.html'>\n";
+	html += "<figure class='header--logo'>Friends Finder &reg;&nbsp;" + customStr + "</figure></a>\n";
+	html += "</header>\n";
+	return html;
+}
+
+// Function: getFooterHtml
+// Usage: var footerHtml = mbtiModel.getFooterHtml();
+// ----------------------------------------------------------
+// Returns standardized footer for the app.
+
+function getFooterHtml() {
+	var html = "";
+	html += "<footer class='footer'>\n";
+	html += "<nav class='footer--nav'>\n";
+	html += "<ul class='menu'>\n";
+	html += "<li class='menu--item'><a href='/api/surveys'>API</a></li>\n";
+	html += "<li class='menu--item'><a href='https://github.com/zenglenn42/friends-finder'>Github</a></li>\n";
+	html += "</ul>\n";
+	html += "</nav>\n";
+	html += "</footer>\n";
 	return html;
 }
 
