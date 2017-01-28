@@ -28,7 +28,7 @@ The initial problem spec was a simple survey that presumed compatibility based u
 
 ## Approach
 
-Once my brain locked in on MBTI, I built a model that leveraged online profiles and compatibility algorithms to relate an assessment outcome to a subset of TV characters that correlate to a respondents survey results.
+Once my brain locked in on MBTI, I built a model that leveraged online profiles and compatibility algorithms to relate an assessment outcome to a subset of TV characters that correlate to a respondent's survey results.
 
 This is such a simple application that I realized I didn't need to bother with SPA/AJAX.  Just 3 pages (landing, survey, results).  Didn't need javascript/jQuery.  Initially I had bootstrap in there just so I could get a fancy submit button, until I thought "why?".  I've been meaning to 'get right' with my CSS and pay some dues to the gods of responsive design and bootstrap kinda slathers over that.  My initial attempt at a jumbotron landing page was a sad mish-mash of CSS ignorance until I spent time reading Jon Duckett's HTML & CSS book.  I like what he has to say about liquid design.  I also found Philip Walton's CSS Architecture blog posting very insightful and so I took some kitty steps toward BEM naming conventions.  It's too easy to write crappy CSS and I'd like to adopt approaches that scale.  I especially like PW's insight that pristinely simple HTML often comes at the expense of cruddy CSS and that it's the responsibility of the HTML to specify /how/ some element should be styled through (sometimes non-trivial) class attributes.
 
