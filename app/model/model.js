@@ -284,7 +284,7 @@ function buildSurveyHtml(actionRoute, method) {
 	html += "<div class='survey--content'><br>\n";
 	html += "<form action='" + actionRoute + "'";
 	html += "method='" + method + "'>\n";
-	html += "<label>Name:&nbsp;<input type='text' name='name' ";
+	html += "<label>Name:&nbsp;<input class='survey--name' type='text' name='name' ";
 	html +=	"placeholder='Enter your name' required='required' /></label>\n";
 	html +=	"<br><br>\n";
 	html += "<fieldset>\n";
@@ -307,7 +307,7 @@ function buildSurveyHtml(actionRoute, method) {
 	html += "\t</ol>\n";
 	html += "</fieldset>\n";
 	html += "<br />\n";
-	html += "<input type='submit' value='Submit'>\n";
+	html += "<input class='survey--button' type='submit' value='Submit'>\n";
 	html += "<br />\n";
 	html += "</form>\n";
 	html += "</div>\n";
@@ -1482,8 +1482,8 @@ var mbtiTvFriends = {
 			closeupPic: "placeholder200x200.png",
 			personalityPic: undefined,
 			rationale: "Okay, we may be reaching a bit here – Friends was severely"
-						+ " lacking in INFP characters. The closest appropriation"
-						+ " we got was Bruce Willis’s fantastic portrayal of Paul,"
+						+ " lacking in INFP characters. The closest approximation"
+						+ " we had was Bruce Willis’ fantastic portrayal of Paul,"
 						+ " the no-nonsense father of Ross’s young flame"
 						+ " Elizabeth. As the series unfolded, we saw a much"
 						+ " softer side to Paul – one that revealed a rich inner"
@@ -1800,10 +1800,10 @@ function getResultsHtml(mbtiType) {
 	html += getHeadHtml();
 	html += "<body>\n";
 	html += getHeaderHtml("Results");
-	html += "<div><br>\n";
+	html += "<div class='results--content'>\n";
 	let key = "dean_burnett";
 	let link = mbtiAttribution.getLink(key);
-	html += "<p><em>DISCLAIMER</em>: This isn't a normed measure so <em>take"
+	html += "<p><strong>DISCLAIMER</strong>: This isn't a normed measure so <em>take"
 	html += " the results lightly</em>.  Also, Meyers-Briggs has its share of "
 	html += "<a href='" + link + "' target='_blank'><em>critics and known limitations</em></a>. \n";
 	html += "For a more evidence-based approach to healthy relationships, checkout the pioneering work of \n";
@@ -1812,24 +1812,24 @@ function getResultsHtml(mbtiType) {
 	html += "<a href='" + link + "' target='_blank'><em>Drs. John and Julie Gottman</em></a>.</p>\n";
 	html += "<h2>Personality Assessment</h2>\n";
 	html += "<p>You seem closest in your Meyers-Briggs personality assessment to an: " ;
-	html += "<em>" + mbtiType.toUpperCase() + "</em></p>\n"; 
+	html += "<u><strong>" + mbtiType.toUpperCase() + "</strong></u></p>\n"; 
 	var title = mbtiModel.descriptors.getDescriptor(mbtiType);
 	html += "<p>If you had a title of some sort, it might be: ";
-	html += "<em>" + title + "</em></p>\n"; 
-	html += "<p>Your most attractive quality is: <em>";
+	html += "<u><strong>" + title + "</strong></u></p>\n"; 
+	html += "<p>Your most attractive quality is: <u><strong>";
 	var attractiveQuality = mbtiModel.profiles.getMostAttractiveQualityQuality(mbtiType);
-	html += attractiveQuality + "</em>\n";
+	html += attractiveQuality + "</strong></u>\n";
 	html += "<h2>Most Similar To</h2>\n";
 	html += "<p>With regard to the characters in the TV Show 'Friends', you're probably closest"
 	html += " in personality to:\n"
 	html += "<ul>\n";
 	let mostLike = mbtiModel.profiles.getInstances(mbtiType);
 	for (let i = 0; i < mostLike.length; i++) {
-		html += "<li>" + mostLike[i] + "\n";
-		let profile = mbtiModel.tvFriends.getRationale(mostLike[i]);
-		html += "<p>" + profile + "</p>\n";
+		html += "<li>" + mostLike[i] + "</br>\n";
 		let imgFile = "assets/img/" + mostLike[i].toLowerCase() + "-mbti.png";
 		html += "<img src='" + imgFile + "' alt='" + mostLike[i] + "'>";
+		let profile = mbtiModel.tvFriends.getRationale(mostLike[i]);
+		html += "<p>" + profile + "</p>\n";
 		html += "</li>\n";
 		html += "<br>\n";
 	}
@@ -1841,11 +1841,11 @@ function getResultsHtml(mbtiType) {
 	for (let i = 0; i < mostCompatibleMbti.length; i++) {
 		let mostCompat = mbtiModel.profiles.getInstances(mostCompatibleMbti[i]);
 		for (let j = 0; j < mostCompat.length; j++) {
-			html += "<li>" + mostCompat[j] + "\n";
-			let profile = mbtiModel.tvFriends.getRationale(mostCompat[j]);
-			html += "<p>" + profile + "</p>\n";
+			html += "<li>" + mostCompat[j] + "</br>\n";
 			let imgFile = "assets/img/" + mostCompat[j].toLowerCase() + "-mbti.png";
 			html += "<img src='" + imgFile + "' alt='" + mostCompat[j] + "'>";
+			let profile = mbtiModel.tvFriends.getRationale(mostCompat[j]);
+			html += "<p>" + profile + "</p>\n";
 			html += "</li>\n";
 			html += "<br>\n";
 		}
@@ -1900,6 +1900,7 @@ function getResultsHtml(mbtiType) {
 	html += "<em>*MBTI profiles courtesy of <a href='" + link + "'>" + fullName + "</a></em></p>\n";
 	html += "<a href='" + link + "'><img src='" + imgFile + "' alt='" + fullName + "' height='75em' width='75em'></a>\n";
 	html += "</div>\n";
+	html += getFooterHtml();
 	html += "</body>\n";
 	html += "</html>\n";
 	return html;

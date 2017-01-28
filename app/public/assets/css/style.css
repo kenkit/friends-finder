@@ -71,10 +71,47 @@ body {
 .survey--content {
 	font-family: Ariel, Verdana, sans-serif;
 	text-align: left;
+	color: black;
+	background-color: darkgray;
+	padding: 1em;
+	font-size: 1.5em;
+	overflow: scroll;
+}
+
+.survey--name {
+	font-size: 1.5em;
+	border: thin black solid;
+	border-radius: 0.125em;
+	background-color: white;
+}
+
+.survey--button {
+	font-size: 1.5em;
+	border: thin black solid;
+	border-radius: 0.25em;
+	background-color: steelblue;
+	padding: 0.5em;
+	color: white;
+	text-shadow:
+		2px 2px 7px #111111;
+}
+
+.results--content {
+	margin: 0;
+	color: black;
+	font-weight: normal;
+	font-family: Ariel, Verdana, sans-serif;
+	text-align: left;
 	background-color: steelblue;
 	padding: 1em;
 	font-size: 1.5em;
 	overflow: scroll;
+}
+
+.results--content a:link,
+.results--content a:visited {
+	color: white;
+	text-decoration: underline;
 }
 
 .splash-text {
