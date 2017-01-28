@@ -1,0 +1,127 @@
+/* Debugging */
+/* * { border: thin red solid; } */
+
+body {
+	background-color: black;
+	margin: 0 auto;
+}
+
+.page {
+	width: 98%;
+	margin: 0.3em auto;
+	font-family: Ariel, Verdana, sans-serif;
+}
+
+.header {
+	background-color: gray;
+	overflow: auto;
+	width: 100%;
+	height: 3.1em;
+	font-size: 2em;
+}
+
+.header--logo {
+	display: inline-block;
+	margin: 0;
+	font-family: "Covered By Your Grace", Ariel, Verdana, sans-serif;
+	font-weight: bold;
+	font-size: 2.5em;
+	font-style: italic;
+}
+
+.header--nav {
+	box-sizing: border-box;
+	display: inline-block;
+	float: right;
+	width: auto;
+	text-align: center;
+	margin-top: 0.8em;
+	margin-right: 1em;
+	background-color: steelblue;
+	border: thin black solid;
+	border-radius: 0.25em;
+	padding: 0.25em 0.45em;
+}
+
+.header a:link,
+.header a:visited {
+	color: white;
+	text-decoration: none;
+	text-shadow:
+		2px 2px 7px #111111;
+}
+
+.content {
+	height: 800px;
+	overflow: auto;
+	text-align: center;
+	background-color: #D0C7C2;
+	background-image: url("landscape.jpg");
+	background-repeat: no-repeat;
+	background-size: auto 100%;
+	background-position: center top;
+}
+
+.splash-text {
+	padding: 0.5em;
+	color: black;
+	font-weight: bold;
+	background-color: rgba(208, 199, 194, 0.5);
+	font-style: italic;
+	font-size: 2.5em;
+}
+
+.footer {
+	/*clear: both;*/
+	background-color: rgba(208, 199, 194, 0.5);
+	overflow: auto;
+	width: 100%;
+	height: 5em;
+}
+
+.footer--nav {
+	width: 50%
+	text-align: center;
+	font-size: 1.5em;
+}
+
+.menu {
+	list-style-type: none;
+	padding: 0;
+	text-align: center;
+}
+
+.menu--item {
+	display: inline;
+	margin-right: 1em;
+}
+
+.menu--item>a {
+	text-decoration: none;
+}
+
+.menu--item>a:link, 
+.menu--item>a:visited {
+	color: #cccccc;
+}
+
+.menu--item:last-child {
+	margin-right: 0em;
+}
+
+/* Portrait orientation -- especially mobile. */
+
+@media screen and (orientation: portrait) {
+	.content {
+		height: 1230px;
+		background-image: url("portrait.jpg");
+		background-size: auto 100%;
+		background-color: black;
+	}
+
+	.splash-text {
+		color: white;
+		background-color: rgba(0, 0, 0, 0.3);
+	}
+
+}

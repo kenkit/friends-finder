@@ -1,56 +1,31 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<title>FriendsFinder</title>
-
-		<!-------------------------->
-		<!-- jQuery               -->
-		<!-------------------------->
-
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-
-		<!-------------------------->
-		<!-- bootstrap            -->
-		<!-------------------------->
-
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" media="screen">
-
-		<!-------------------------->
-		<!-- project styling      -->
-		<!-------------------------->
-
-		<link href="https://fonts.googleapis.com/css?family=Anton" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-		<link href="assets/css/view.css" rel="stylesheet" type="text/css">
-	</head>
-	<body>
-	<div class="container">
-		<div class="jumbotron">
-			<h1 class="well jumbotron-titletext">
-				<span class="red-text">Adept</span>FriendsFinder &#174;
-			</h1>
-			<div class="well jumbotron-subtext">
-				<h2>
-	  			Answer some questions to find your TV &#8216;Friend&#8217; with the greatest compatibility!&nbsp;
-	  			</h2>
-			</div>
+<head>
+	<meta charset="utf-8">
+	<title>Friends Finder</title>
+	<link href="style.css" rel="stylesheet" type="text/css">
+	<link href="https://fonts.googleapis.com/css?family=Covered+By+Your+Grace" rel="stylesheet">
+</head>
+<body>
+	<div class="page">
+		<header class="header">
+			<a href="index.html">
+				<figure class="header--logo">Friends Finder &reg;</figure> </a>
+			<nav class="header--nav">
+					<a href="/survey">Go to Survey</a>
+			</nav>
+		</header>
+		<div class="content">
+			<p class="splash-text">Answer some questions to find your <u>best</u> TV &ldquo;Friend&rdquo; !</p>
 		</div>
-		<div>
-			<form action="/survey" method="get">
-				<a class="btn btn-primary btn-md" href="/survey" role="button">
-			  		<span class="glyphicon glyphicon-list-alt"></span> Go to Survey
-				</a>
-			</form>
-		</div>
-		<br>
-		<hr>
 		<footer class="footer">
-			<div class="container">
-			        <p><a href="/api/surveys">API Friends List</a> | <a href="https://github.com/zenglenn42/friends-finder">GitHub Repo</a></p>
-			</div>
+			<nav class="footer--nav">
+				<ul class="menu">
+					<li class="menu--item"><a href="/api/surveys">API</a></li>
+					<li class="menu--item"><a href="https://github.com/zenglenn42/friends-finder">Github</a></li>
+				</ul>
+			</nav>
 		</footer>
 	</div>
-	</body>
+</body>
 </html>
