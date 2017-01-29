@@ -268,12 +268,12 @@ var mbtiSurvey = {
 };
 
 // Function: buildSurveyHtml
-// Usage: var formHtml = mbtiModel.survey.buildSurveyHtml("/survey", "post");
-// --------------------------------------------------------------------------
+// Usage: var formHtml = mbtiModel.survey.buildSurveyHtml("/survey", "post", false);
+// ---------------------------------------------------------------------------------
 // Returns an html form of MBTI survey questions.
 // TODO: Make this SPA-friendly.
 
-function buildSurveyHtml(actionRoute, method) {
+function buildSurveyHtml(actionRoute, method, flagMissingResponses) {
 	var qArray = this.questions;
 	var html ="";
 	var html = "<!DOCTYPE html>\n";
@@ -286,8 +286,18 @@ function buildSurveyHtml(actionRoute, method) {
 	html += "method='" + method + "'>\n";
 	html += "<label>Name:&nbsp;<input class='survey--name' type='text' name='name' ";
 	html +=	"placeholder='Enter your name' required='required' /></label>\n";
+
+	html +=	"<p class='survey--error' ";
+	var psaText = "Did you leave something unanswered?";
+	if (flagMissingResponses) {
+		html +=	"style='visibility: visible'";
+	} else {
+		html +=	"style='visibility: hidden'";
+	}
+	html +=	">" + psaText + "</p>\n";
+
 	html +=	"<br><br>\n";
-	html += "<fieldset>\n";
+	html += "<fieldset class='survey--questions'>\n";
 	html += "<legend>\n";
 	html += "\t" + this.title + "\n";
 	html += "</legend>\n";
@@ -329,6 +339,8 @@ function makeRadioButton(rbName, rbValue) {
 // Usage: var mbtiStr = mbtiModel.survey.scoreSurvey(surveyJson);
 // --------------------------------------------------------------
 // Returns the mbti string (e.g., "entp") for the completed survey.
+// If the input survey is incomplete, a empty string is returned as
+// an error condition.
 //
 // The input survey json is structured like this:
 //
@@ -340,10 +352,12 @@ function scoreSurvey(survey) {
 	if (!survey) return mbtiType;
 
 	var mbtiWeights = this.computeMbtiWeights(survey);
-	mbtiType += (mbtiWeights.e >= mbtiWeights.i) ? 'e' : 'i';
-	mbtiType += (mbtiWeights.s >= mbtiWeights.n) ? 's' : 'n';
-	mbtiType += (mbtiWeights.f >= mbtiWeights.t) ? 'f' : 't';
-	mbtiType += (mbtiWeights.p >= mbtiWeights.j) ? 'p' : 'j';
+	if (mbtiWeights.valid) {
+		mbtiType += (mbtiWeights.e >= mbtiWeights.i) ? 'e' : 'i';
+		mbtiType += (mbtiWeights.s >= mbtiWeights.n) ? 's' : 'n';
+		mbtiType += (mbtiWeights.f >= mbtiWeights.t) ? 'f' : 't';
+		mbtiType += (mbtiWeights.p >= mbtiWeights.j) ? 'p' : 'j';
+	}
 	return mbtiType;		
 }
 
@@ -352,7 +366,7 @@ function scoreSurvey(survey) {
 // ------------------------------------------------------------------
 // Returns a computed mbti object with values for each MBTI component.
 //
-// e.g., mbtiWeights = { e:2, i:5, s:5, n:1, t:6.7, f:1, j:6, p:5.1};
+// e.g., mbtiWeights = { e:2, i:5, s:5, n:1, t:6.7, f:1, j:6, p:5.1, valid:true };
 
 function computeMbtiWeights(survey) {
 	var results = {
@@ -363,20 +377,50 @@ function computeMbtiWeights(survey) {
 		t: 0.0,
 		f: 0.0,
 		p: 0.0,
-		j: 0.0
+		j: 0.0,
+		valid: true
 	};
-	if (!survey) return results;
+
+	/* Empty survey object is obvious error. */
+
+	if (!survey) {
+		results.valid = false;
+		return results;
+	}
+
+	/* We expect all survey questions plus name field to be filled in. */
+
+	var expectedSurveyLength = this.questions.length + 1;
+	var actualSurveyLength = 0;
 
 	for (q in survey) {
+		actualSurveyLength++;
+
+		/* Flag any missing responses as an error. */
+
+		if (!survey[q]) {
+			results.valid = false;
+			break;
+		}
+
+		/* The name field should be ignored from MBTI calculation. */
+
 		if (q == "name") continue;
+
+		// For this question, determine which pyschological functions
+		// (i/e, s/n, t/f, j/p) are involved and add the specific weighting    
+		// to the existing summations for each function.
+
 		var surveyAnsStr = survey[q];
 		var qIndex = parseInt(q.slice(1));
 		var surveyArray = this.questions;
+
 		// questions = [
 		//	{q:"Social interaction comes to you",
 		//   a: [['naturally','e:2'],['with effort', 'i:2']]},
 		//  {..},
 		// ]
+		
 		var ansArray = this.questions[qIndex].a;
 		for (var i = 0; i < ansArray.length; i++) {
 			if (surveyAnsStr == ansArray[i][0]) {
@@ -393,6 +437,8 @@ function computeMbtiWeights(survey) {
 			}
 		}
 	}	
+
+	results.valid = (actualSurveyLength === expectedSurveyLength) ? results.valid : false;
 	return results;
 }
 
@@ -1631,6 +1677,37 @@ function getUnitTestSurvey(mbtiType) {
 			};
 			break;
 
+		case "isfj":
+			surveyObj = {
+				name: "ISFJ User",
+				q0: "with effort",
+				q1: "facts and procedures",
+				q2: "the facts",
+				q3: "work first, then play",
+				q4: "realistic",
+				q5: "private",
+				q6: "conventional",
+				q7: "figuratively",
+				q8: "careful plans",
+				q9: "harmony",
+				q10: "with a deadline",
+				q11: "tidying up",
+				q12: "connect to his emotions",
+				q13: "sensitive",
+				q14: "scatterbrained",
+				q15: "be wary of new situations",
+				q16: "the present",
+				q17: "ratings and reviews",
+				q18: "yes",
+				q19: "work alone",
+				q20: "long term goals",
+				q21: "remembering the events of the day",
+				q22: "feeling",
+				q23: "yes",
+				q24: "shopping malls"
+			};
+			break;
+
 		case "enfp":
 			surveyObj = {
 				name: "ENFP User",
@@ -1745,7 +1822,7 @@ function unitTests() {
 				&& fResults.pop() == expectedFemaleResults.pop());
 	}
 	if (result) {
-		var surveyHtml = this.survey.buildSurveyHtml();
+		var surveyHtml = this.survey.buildSurveyHtml("/survey", "post", false);
 		console.log(surveyHtml);
 		result = (surveyHtml) ? true : false;
 	}
@@ -1778,6 +1855,16 @@ function unitTests() {
 		console.log(mbtiWeights);
 		console.log(actualMbtiStr);
 		result = ("entj" == actualMbtiStr);
+	}
+	if (result) {
+		let expectedMbtiStr = "isfj";
+		var survey = getUnitTestSurvey(expectedMbtiStr);
+		var mbtiWeights = this.survey.computeMbtiWeights(survey);
+		var actualMbtiStr = this.survey.scoreSurvey(survey);
+
+		console.log(mbtiWeights);
+		console.log(actualMbtiStr);
+		result = ("isfj" == actualMbtiStr);
 	}
 	return result;
 }
@@ -1874,7 +1961,7 @@ function getResultsHtml(mbtiType) {
 	html += atAParty + "</p>\n";
 	var kindOfGF = mbtiModel.profiles.getKindOfGirlfriend(mbtiType);
 	html += "<p>As a girlfriend: \n";
-	html += kindOfGF + " [ According to Heide* (-; ]</p>\n";
+	html += kindOfGF + "</p>\n";
 
 	/*  Need to fix the perspective in the description before this will read well.
 	html += "<p>Someone you like will know it because: \n";

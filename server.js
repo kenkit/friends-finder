@@ -5,13 +5,18 @@ var mbtiModel = require("./app/model/model.js");
 var app = express();
 var PORT = process.env.PORT || 8080;
 var responses = {}
+var gFlagMissingResponses = false;
 
 // Make public files available to the client.
 app.use(express.static(__dirname + "/app/public"));
 
 // Display the survey for the user to complete.
 app.get("/survey", function(req, res) {
-	var html = mbtiModel.survey.buildSurveyHtml("/survey", "post");
+	var html = mbtiModel.survey.buildSurveyHtml(
+					"/survey", 
+					"post", 
+					gFlagMissingResponses);
+	gFlagMissingResponses = false;
 	res.end(html);
 });
 
@@ -37,7 +42,13 @@ app.post("/survey", function(req, res) {
 		var html = mbtiModel.getResultsHtml(mbtiType);
 		res.end(html);
 	} else {
-		res.end("Unable to determine your Myers-Briggs personality type.");
+		
+		// Assume user failed to answer at least one question
+		// or failed to enter a name.  Redisplay the survey page,
+		// but this time, flag user to complete all items.
+		
+		gFlagMissingResponses = true;
+		res.redirect("/survey");
 	}
 });
 

@@ -1,7 +1,7 @@
 {
-	"name": "data-pump",
-	"description": "A data-analytics and visualization engine based upon node.js & express",
-	"repository": "https://github.com/zenglenn42/data-pump",
+	"name": "friends-finder",
+	"description": "A social media Friend Finder based upon mbti model, node.js, and express",
+	"repository": "https://github.com/zenglenn42/friends-finder",
 	"logo": "http://node-js-sample.herokuapp.com/node.svg",
 	"keywords": ["node", "express", "static"],
 	"image": "heroku/nodejs",

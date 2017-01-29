@@ -1,4 +1,4 @@
-# Friends Finder
+# Friends Finder 
 
 This week, I'm mashing up a simplified Meyers-Briggs personality assessment with an MBTI model of the characters from the TV show, Friends.  Users complete a survey to see which character from the show they are most like and with whom they would be most compatible.  It's bogus, but fun.
 
