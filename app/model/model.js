@@ -1791,39 +1791,32 @@ function unitTests() {
 	}
 	if (result) {
 		var profile = this.tvFriends.getProfile("Ross");
-		console.log(profile);
 		result = (profile.fullName === "Ross Geller");
 	}
 	if (result) {
 		var rationale = this.tvFriends.getRationale("Ross");
-		console.log(rationale);
 		result = (rationale) ? true : false;
 	}
 	if (result) {
 		var video = this.videos.getVideo("infj");
-		console.log(rationale);
 		result = (video === "https://youtu.be/d4dLLS-DQfA?list=PL6rzdODmcL641s7WiVwaAAMlTrwnI1bCA");
 	}
 	if (result) {
 		var infjExpectedMatches = ["entp", "enfp"]
 		var bestMatches = this.bestMatches.getBestMatches("infj");
 			matches: ["entp", "enfp"],
-		console.log(bestMatches);
 		result = (bestMatches.join('') === infjExpectedMatches.join(''));
 	}
 	if (result) {
 		var expectedMaleResults = ["Joey"];
 		var expectedFemaleResults = ["Rachel"];
 		var mResults = this.profiles.getGenderInstances("esfp", "male");
-		console.log(mResults);
 		var fResults = this.profiles.getGenderInstances("esfp", "female");
-		console.log(fResults);
 		result = (mResults.pop() == expectedMaleResults.pop() 
 				&& fResults.pop() == expectedFemaleResults.pop());
 	}
 	if (result) {
 		var surveyHtml = this.survey.buildSurveyHtml("/survey", "post", false);
-		console.log(surveyHtml);
 		result = (surveyHtml) ? true : false;
 	}
 	var expectedMbtiStr;
@@ -1832,9 +1825,6 @@ function unitTests() {
 		var survey = getUnitTestSurvey(expectedMbtiStr);
 		var mbtiWeights = this.survey.computeMbtiWeights(survey);
 		var actualMbtiStr = this.survey.scoreSurvey(survey);
-
-		console.log(mbtiWeights);
-		console.log(actualMbtiStr);
 		result = ("istj" == actualMbtiStr);
 	}
 	if (result) {
@@ -1842,9 +1832,6 @@ function unitTests() {
 		var survey = getUnitTestSurvey(expectedMbtiStr);
 		var mbtiWeights = this.survey.computeMbtiWeights(survey);
 		var actualMbtiStr = this.survey.scoreSurvey(survey);
-
-		console.log(mbtiWeights);
-		console.log(actualMbtiStr);
 		result = ("enfp" == actualMbtiStr);
 	}
 	if (result) {
@@ -1852,9 +1839,6 @@ function unitTests() {
 		var survey = getUnitTestSurvey(expectedMbtiStr);
 		var mbtiWeights = this.survey.computeMbtiWeights(survey);
 		var actualMbtiStr = this.survey.scoreSurvey(survey);
-
-		console.log(mbtiWeights);
-		console.log(actualMbtiStr);
 		result = ("entj" == actualMbtiStr);
 	}
 	if (result) {
@@ -1862,9 +1846,6 @@ function unitTests() {
 		var survey = getUnitTestSurvey(expectedMbtiStr);
 		var mbtiWeights = this.survey.computeMbtiWeights(survey);
 		var actualMbtiStr = this.survey.scoreSurvey(survey);
-
-		console.log(mbtiWeights);
-		console.log(actualMbtiStr);
 		result = ("isfj" == actualMbtiStr);
 	}
 	return result;
