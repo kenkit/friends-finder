@@ -1912,11 +1912,13 @@ function getResultsHtml(mbtiType) {
 	html += " in personality to:\n"
 	html += "<ul>\n";
 	var mostLike = mbtiModel.profiles.getInstances(mbtiType);
+	var imgFile;
+	var profile;
 	for (var i = 0; i < mostLike.length; i++) {
 		html += "<li>" + mostLike[i] + "</br>\n";
-		let imgFile = "assets/img/" + mostLike[i].toLowerCase() + "-mbti.png";
+		imgFile = "assets/img/" + mostLike[i].toLowerCase() + "-mbti.png";
 		html += "<img class='results--img' src='" + imgFile + "' alt='" + mostLike[i] + "'>";
-		let profile = mbtiModel.tvFriends.getRationale(mostLike[i]);
+		profile = mbtiModel.tvFriends.getRationale(mostLike[i]);
 		html += "<p>" + profile + "</p>\n";
 		html += "</li>\n";
 		html += "<br>\n";
@@ -1930,9 +1932,9 @@ function getResultsHtml(mbtiType) {
 		let mostCompat = mbtiModel.profiles.getInstances(mostCompatibleMbti[k]);
 		for (var j = 0; j < mostCompat.length; j++) {
 			html += "<li>" + mostCompat[j] + "</br>\n";
-			let imgFile = "assets/img/" + mostCompat[j].toLowerCase() + "-mbti.png";
+			imgFile = "assets/img/" + mostCompat[j].toLowerCase() + "-mbti.png";
 			html += "<img class='results--img' src='" + imgFile + "' alt='" + mostCompat[j] + "'>";
-			let profile = mbtiModel.tvFriends.getRationale(mostCompat[j]);
+			profile = mbtiModel.tvFriends.getRationale(mostCompat[j]);
 			html += "<p>" + profile + "</p>\n";
 			html += "</li>\n";
 			html += "<br>\n";
@@ -1984,7 +1986,7 @@ function getResultsHtml(mbtiType) {
 	key = "heidi_priebe";
 	fullName = mbtiAttribution.getFullName(key);
 	link = mbtiAttribution.getLink(key);
-	var imgFile = mbtiAttribution.getPic(key);
+	imgFile = mbtiAttribution.getPic(key);
 	html += "<em>*MBTI profiles courtesy of <a href='" + link + "'>" + fullName + "</a></em></p>\n";
 	html += "<a href='" + link + "'><img src='" + imgFile + "' alt='" + fullName + "' height='75em' width='75em'></a>\n";
 	html += "</div>\n";
