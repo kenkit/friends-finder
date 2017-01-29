@@ -1889,7 +1889,7 @@ function getResultsHtml(mbtiType) {
 	html += "<body>\n";
 	html += getHeaderHtml("Results");
 	html += "<div class='results--content'>\n";
-	let key = "dean_burnett";
+	var key = "dean_burnett";
 	let link = mbtiAttribution.getLink(key);
 	html += "<p><strong>DISCLAIMER</strong>: This isn't a normed measure so <em>take"
 	html += " the results lightly</em>.  Also, Meyers-Briggs has its share of "
@@ -1911,7 +1911,7 @@ function getResultsHtml(mbtiType) {
 	html += "<p>With regard to the characters in the TV Show 'Friends', you're probably closest"
 	html += " in personality to:\n"
 	html += "<ul>\n";
-	let mostLike = mbtiModel.profiles.getInstances(mbtiType);
+	var mostLike = mbtiModel.profiles.getInstances(mbtiType);
 	for (let i = 0; i < mostLike.length; i++) {
 		html += "<li>" + mostLike[i] + "</br>\n";
 		let imgFile = "assets/img/" + mostLike[i].toLowerCase() + "-mbti.png";
