@@ -1929,7 +1929,7 @@ function getResultsHtml(mbtiType) {
 	html += "<ul>\n";
 	var mostCompatibleMbti = mbtiModel.bestMatches.getBestMatches(mbtiType);
 	for (var k = 0; k < mostCompatibleMbti.length; k++) {
-		let mostCompat = mbtiModel.profiles.getInstances(mostCompatibleMbti[k]);
+		var mostCompat = mbtiModel.profiles.getInstances(mostCompatibleMbti[k]);
 		for (var j = 0; j < mostCompat.length; j++) {
 			html += "<li>" + mostCompat[j] + "</br>\n";
 			imgFile = "assets/img/" + mostCompat[j].toLowerCase() + "-mbti.png";
