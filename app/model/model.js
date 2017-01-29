@@ -1890,7 +1890,7 @@ function getResultsHtml(mbtiType) {
 	html += getHeaderHtml("Results");
 	html += "<div class='results--content'>\n";
 	var key = "dean_burnett";
-	let link = mbtiAttribution.getLink(key);
+	var link = mbtiAttribution.getLink(key);
 	html += "<p><strong>DISCLAIMER</strong>: This isn't a normed measure so <em>take"
 	html += " the results lightly</em>.  Also, Meyers-Briggs has its share of "
 	html += "<a href='" + link + "' target='_blank'><em>critics and known limitations</em></a>. \n";
@@ -1912,7 +1912,7 @@ function getResultsHtml(mbtiType) {
 	html += " in personality to:\n"
 	html += "<ul>\n";
 	var mostLike = mbtiModel.profiles.getInstances(mbtiType);
-	for (let i = 0; i < mostLike.length; i++) {
+	for (var i = 0; i < mostLike.length; i++) {
 		html += "<li>" + mostLike[i] + "</br>\n";
 		let imgFile = "assets/img/" + mostLike[i].toLowerCase() + "-mbti.png";
 		html += "<img class='results--img' src='" + imgFile + "' alt='" + mostLike[i] + "'>";
@@ -1926,9 +1926,9 @@ function getResultsHtml(mbtiType) {
 	html += "<p>If you lived in that TV world, you might have the <em>most compatible friendship</em> with:\n";
 	html += "<ul>\n";
 	var mostCompatibleMbti = mbtiModel.bestMatches.getBestMatches(mbtiType);
-	for (let i = 0; i < mostCompatibleMbti.length; i++) {
-		let mostCompat = mbtiModel.profiles.getInstances(mostCompatibleMbti[i]);
-		for (let j = 0; j < mostCompat.length; j++) {
+	for (var k = 0; k < mostCompatibleMbti.length; k++) {
+		let mostCompat = mbtiModel.profiles.getInstances(mostCompatibleMbti[k]);
+		for (var j = 0; j < mostCompat.length; j++) {
 			html += "<li>" + mostCompat[j] + "</br>\n";
 			let imgFile = "assets/img/" + mostCompat[j].toLowerCase() + "-mbti.png";
 			html += "<img class='results--img' src='" + imgFile + "' alt='" + mostCompat[j] + "'>";
@@ -1972,7 +1972,7 @@ function getResultsHtml(mbtiType) {
 
 	html += "<hr>\n";
 	key = "michael_pierce";
-	let fullName = mbtiAttribution.getFullName(key);
+	var fullName = mbtiAttribution.getFullName(key);
 	link = mbtiAttribution.getLink(key);
 	html += "<p><em>*MBTI background videos courtesy of <a href='" + link + "'>" + fullName + "</a></em><br>\n";
 
@@ -1984,7 +1984,7 @@ function getResultsHtml(mbtiType) {
 	key = "heidi_priebe";
 	fullName = mbtiAttribution.getFullName(key);
 	link = mbtiAttribution.getLink(key);
-	let imgFile = mbtiAttribution.getPic(key);
+	var imgFile = mbtiAttribution.getPic(key);
 	html += "<em>*MBTI profiles courtesy of <a href='" + link + "'>" + fullName + "</a></em></p>\n";
 	html += "<a href='" + link + "'><img src='" + imgFile + "' alt='" + fullName + "' height='75em' width='75em'></a>\n";
 	html += "</div>\n";
