@@ -268,12 +268,29 @@ var mbtiSurvey = {
 };
 
 // Function: buildSurveyHtml
-// Usage: var formHtml = mbtiModel.survey.buildSurveyHtml("/survey", "post", false);
-// ---------------------------------------------------------------------------------
-// Returns an html form of MBTI survey questions.
-// TODO: Make this SPA-friendly.
+// Usage: var formHtml = mbtiModel.survey.buildSurveyHtml("/survey", "post");
+//        var formHtml = mbtiModel.survey.buildSurveyHtml("/survey", 
+//							"post", true, 
+//							partialSurvey);
+// ----------------------------------------------------------------------------
+// In it's simplest usage, this method returns an empty, html-ized form of MBTI 
+// survey questions.
+//
+// Alternatively, it can generate html to match the state implied by an
+// incoming json survey.  This is especially useful if a user has only 
+// partially completed the survey and we want to flag the unanswered items 
+// that need to be addressed while preserving the data already entered.
+// 
+// surveyJson = { 
+//		name: 'bill',
+//		q0: 'naturally',
+//		q1: 'abstract concepts',
+//		q2: 'the feelings of others',
+//		..
+//		q24: 'garage sales' 
+// }
 
-function buildSurveyHtml(actionRoute, method, flagMissingResponses) {
+function buildSurveyHtml(actionRoute, method, flagMissingResponses, partialSurvey) {
 	var qArray = this.questions;
 	var html ="";
 	var html = "<!DOCTYPE html>\n";
@@ -284,8 +301,28 @@ function buildSurveyHtml(actionRoute, method, flagMissingResponses) {
 	html += "<div class='survey--content'><br>\n";
 	html += "<form action='" + actionRoute + "'";
 	html += "method='" + method + "'>\n";
-	html += "<label>Name:&nbsp;<input class='survey--name' type='text' name='name' ";
-	html +=	"placeholder='Enter your name' required='required' /></label>\n";
+
+	// Name-related html.
+
+	html += "<label>Name:&nbsp;<input type='text' name='name' ";
+	html +=	"placeholder='Enter your name' required='required' ";
+	if (flagMissingResponses) {
+		if (partialSurvey.name) {
+			/* Re-populate form with supplied name. */
+			html +=	"value='" + partialSurvey.name + "'";
+			html += "class='survey--name'";
+		} else {
+			/* Style this element to draw attention to the user. */
+			html += "class='survey--name survey--missingItem'";
+		}
+	}
+	else {
+			html += "class='survey--name'";
+	}
+	html += " /></label>\n";
+
+	// Use space to the right of the name control to flag
+	// form-validation errors.
 
 	html +=	"<p class='survey--error' ";
 	var psaText = "Did you leave something unanswered?";
@@ -303,14 +340,30 @@ function buildSurveyHtml(actionRoute, method, flagMissingResponses) {
 	html += "</legend>\n";
 	html += "\t<ol>\n";
 	for (var i = 0; i < qArray.length; i++) {
-		html += "\t\t<li><p>\n";
+		html += "\t\t";
+		var rbName = "q" + i.toString();
+		if (flagMissingResponses) {
+			if (partialSurvey[rbName]) {
+				html += "<li>";
+			} else {
+				html += "<li class='survey--missingItem'>";
+			}
+		}
+		else {
+			html += "<li>";
+		}
+		html += "<p>\n";
 		var q = qArray[i].q + " ... ";
 		html += "\t\t\t" + q + "\n";
-		var rbName = "q" + i;
 		var aArray = qArray[i].a;
 		for (var j = 0; j < aArray.length; j++) {
 			var rbVal = aArray[j][0];
-			html += makeRadioButton(rbName, rbVal);
+			var checked = false;
+			if (flagMissingResponses) {
+				var existingVal = partialSurvey[rbName];
+				var checked = (rbVal == existingVal);
+			}
+			html += makeRadioButton(rbName, rbVal, checked);
 		}
 		html += "\t\t</p></li>\n";
 	}
@@ -326,8 +379,11 @@ function buildSurveyHtml(actionRoute, method, flagMissingResponses) {
 	return html;
 }
 
-function makeRadioButton(rbName, rbValue) {
+function makeRadioButton(rbName, rbValue, checked) {
 	var html = "\t\t\t<label><input type='radio' ";
+	if (checked) {
+		html += "checked='checked' ";
+	}
 	html += "name='" + rbName + "' ";
 	html += "value='" + rbValue + "' ";
 	html += "required='required' />&nbsp;";
@@ -344,7 +400,14 @@ function makeRadioButton(rbName, rbValue) {
 //
 // The input survey json is structured like this:
 //
-// surveyJson = {q1: 'naturally', q2: 'facts and proceduress', ..};
+// surveyJson = { 
+//		name: 'bill',
+//		q0: 'naturally',
+//		q1: 'abstract concepts',
+//		q2: 'the feelings of others',
+//		..
+//		q24: 'garage sales' 
+// }
 
 function scoreSurvey(survey) {
 	var results = {};

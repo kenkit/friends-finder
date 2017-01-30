@@ -110,6 +110,10 @@ body {
 	visibility: hidden;
 }
 
+.survey--missingItem {
+	border: thin red solid;	
+}
+
 .results--content {
 	margin: 0;
 	color: black;
