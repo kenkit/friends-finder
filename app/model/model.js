@@ -304,7 +304,7 @@ function buildSurveyHtml(actionRoute, method, flagMissingResponses, partialSurve
 
 	// Name-related html.
 
-	html += "<label>Name:&nbsp;<input type='text' name='name' ";
+	html += "<label class='survey--label'>Name:&nbsp;<input type='text' name='name' ";
 	html +=	"placeholder='Enter your name' required='required' ";
 	if (flagMissingResponses) {
 		if (partialSurvey.name) {
@@ -335,7 +335,7 @@ function buildSurveyHtml(actionRoute, method, flagMissingResponses, partialSurve
 
 	html +=	"<br><br>\n";
 	html += "<fieldset class='survey--questions'>\n";
-	html += "<legend>\n";
+	html += "<legend class='survey--legend'>\n";
 	html += "\t" + this.title + "\n";
 	html += "</legend>\n";
 	html += "\t<ol>\n";
@@ -352,7 +352,7 @@ function buildSurveyHtml(actionRoute, method, flagMissingResponses, partialSurve
 		else {
 			html += "<li>";
 		}
-		html += "<p>\n";
+		html += "<p class='survey--question'>\n";
 		var q = qArray[i].q + " ... ";
 		html += "\t\t\t" + q + "\n";
 		var aArray = qArray[i].a;
@@ -362,6 +362,9 @@ function buildSurveyHtml(actionRoute, method, flagMissingResponses, partialSurve
 			if (flagMissingResponses) {
 				var existingVal = partialSurvey[rbName];
 				var checked = (rbVal == existingVal);
+			}
+			if (j < (aArray.length - 1)) {
+				html += "<br />";
 			}
 			html += makeRadioButton(rbName, rbVal, checked);
 		}
@@ -1937,11 +1940,11 @@ function getResultsHtml(mbtiType) {
 	var link = mbtiAttribution.getLink(key);
 	html += "<p><strong>DISCLAIMER</strong>: This isn't a normed measure so <em>take"
 	html += " the results lightly</em>.  Also, Meyers-Briggs has its share of "
-	html += "<a href='" + link + "' target='_blank'><em>critics and known limitations</em></a>. \n";
+	html += "<a href='" + link + "' target='_blank'><em>critics and limitations</em></a>. \n";
 	html += "For a more evidence-based approach to healthy relationships, checkout the pioneering work of \n";
 	key = "john_gottman";
 	link = mbtiAttribution.getLink(key);
-	html += "<a href='" + link + "' target='_blank'><em>Drs. John and Julie Gottman</em></a>.</p>\n";
+	html += "<a href='" + link + "' target='_blank'><em>Drs. John & Julie Gottman</em></a>.</p>\n";
 	html += "<h2>Personality Assessment</h2>\n";
 	html += "<p>You seem closest in your Meyers-Briggs personality assessment to an: " ;
 	html += "<u><strong>" + mbtiType.toUpperCase() + "</strong></u></p>\n"; 
@@ -1951,6 +1954,7 @@ function getResultsHtml(mbtiType) {
 	html += "<p>Your most attractive quality is: <u><strong>";
 	var attractiveQuality = mbtiModel.profiles.getMostAttractiveQualityQuality(mbtiType);
 	html += attractiveQuality + "</strong></u>\n";
+	html += "<br>\n";
 	html += "<h2>Most Similar To</h2>\n";
 	html += "<p>With regard to the characters in the TV Show 'Friends', you're probably closest"
 	html += " in personality to:\n"
