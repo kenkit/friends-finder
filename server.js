@@ -4,6 +4,9 @@ var mbtiModel = require("./app/model/model.js");
 
 var app = express();
 var PORT = process.env.PORT || 8080;
+
+// TODO: Um, should really be stateless.  Maybe its time to bust
+//       out some ajax and push form validation to the client-side.
 var gResponses = {};
 var gPartialSurvey = {};
 var gFlagMissingResponses = false;
